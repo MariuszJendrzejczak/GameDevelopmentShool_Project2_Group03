@@ -35,8 +35,8 @@ public class Tile : MonoBehaviour
     {
         if (isWalkAble)
         {
-            GamaManager.Instance.MoveUnit(this.transform.position);
-            GamaManager.Instance.UnitSelection(null, 0);
+            GameManager.Instance.MoveUnit(this.transform.position);
+            GameManager.Instance.UnitSelection(null, 0);
         }
         else
         {

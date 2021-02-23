@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.WSA;
 
-public class GamaManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    private static GamaManager instance;
-    public static GamaManager Instance
+    private static GameManager instance;
+    public static GameManager Instance
     {
         get { return instance; }
     }
@@ -45,7 +45,7 @@ public class GamaManager : MonoBehaviour
             Debug.Log("Selected");
             foreach (GameObject tile in tilesList)
             {
-                if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedSpeed)
+                if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedSpeed + 0.5f)
                 {
                     Tile obj = tile.GetComponent<Tile>();
                     obj.HighLightMe(Color.red);

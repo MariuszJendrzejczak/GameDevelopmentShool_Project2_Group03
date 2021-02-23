@@ -13,12 +13,12 @@ public class Unit : MonoBehaviour
     {
         if (isSelected)
         {
-            GamaManager.Instance.UnitSelection(null, 0);
+            GameManager.Instance.UnitSelection(null, 0);
             isSelected = false;
         }
         else
         {
-            GamaManager.Instance.UnitSelection(this, unitSpeed);
+            GameManager.Instance.UnitSelection(this, unitSpeed);
             isSelected = true;
         }
     }
