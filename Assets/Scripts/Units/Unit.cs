@@ -30,17 +30,15 @@ public class Unit : MonoBehaviour
 
     IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)
     {
-        while (transform.position.x != tilePosition.x)
+        while (transform.position.x != tilePosition.x && transform.position.y != tilePosition.y)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(tilePosition.x, transform.position.y), moveStep * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, tilePosition, moveStep * Time.deltaTime);
             yield return null;
         }
-        while (transform.position.y != tilePosition.y)
+        /*while (transform.position.y != tilePosition.y)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, tilePosition.y), moveStep * Time.deltaTime);
             yield return null;
-        }
-
-        
+        }*/
     }
 }
