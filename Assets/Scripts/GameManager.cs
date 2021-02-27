@@ -16,9 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
-    private GameObject tilesContaainter;
+    private GameObject tilesContaainter, unitsContainer;
     [SerializeField]
-    private List<GameObject> tilesList;
+    private List<GameObject> tilesList, unitsList;
+    
 
     private void Awake()
     {
@@ -26,10 +27,16 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+
+        /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
         for (int i = 0; i < tilesContaainter.transform.childCount; i++)
         {
             tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < unitsContainer.transform.childCount; i++)
+        {
+            unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
         }
     }
 
@@ -42,13 +49,34 @@ public class GameManager : MonoBehaviour
     {
         if (selectedUnit)
         {
-            Debug.Log("Selected");
-            foreach (GameObject tile in tilesList)
+            if (selectedUnit.hasMoved == false)
             {
-                if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedSpeed + 0.5f)
+                foreach (GameObject tile in tilesList)
                 {
-                    Tile obj = tile.GetComponent<Tile>();
-                    obj.HighLightMe(Color.red);
+                    if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedSpeed + 0.5f)
+                    {
+                        Tile obj = tile.GetComponent<Tile>();
+                        obj.HighLightMe(Color.red);
+                    }
+                }
+                foreach (GameObject unit in unitsList)
+                {
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedSpeed + 1.5f)
+                    {
+                        Unit obj = unit.GetComponent<Unit>();
+                        obj.HighLightMe(Color.green);
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameObject unit in unitsList)
+                {
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= 1.5f)
+                    {
+                        Unit obj = unit.GetComponent<Unit>();
+                        obj.HighLightMe(Color.green);
+                    }
                 }
             }
         }
@@ -59,6 +87,11 @@ public class GameManager : MonoBehaviour
                 {
                     tile.GetComponent<Tile>().UnHighLightMe();
                 }
+            foreach (GameObject unit in unitsList)
+            {
+                unit.GetComponent<Unit>().UnHighLightMe();
+            }
+         
             Debug.Log("Unselected");
         }
     }

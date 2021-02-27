@@ -20,7 +20,6 @@ public class Tile : MonoBehaviour
 
     public void HighLightMe(Color color)
     {
-        Debug.Log("Light");
         renderer.color = color;
         isWalkAble = true;
     }
