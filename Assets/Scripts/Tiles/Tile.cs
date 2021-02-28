@@ -20,7 +20,6 @@ public class Tile : MonoBehaviour
 
     public void HighLightMe(Color color)
     {
-        Debug.Log("Light");
         renderer.color = color;
         isWalkAble = true;
     }
@@ -36,7 +35,7 @@ public class Tile : MonoBehaviour
         if (isWalkAble)
         {
             GameManager.Instance.MoveUnit(this.transform.position);
-            GameManager.Instance.UnitSelection(null, 0);
+            GameManager.Instance.UnitSelection(null);
         }
         else
         {
