@@ -1028,6 +1028,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1230557280}
     m_Modifications:
+    - target: {fileID: 1335588144, guid: 14b97f7c4a7bd564aad7a8acc6780b92, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 14b97f7c4a7bd564aad7a8acc6780b92, type: 3}
+      propertyPath: unitArmor
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 14b97f7c4a7bd564aad7a8acc6780b92, type: 3}
+      propertyPath: unitAttack
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 14b97f7c4a7bd564aad7a8acc6780b92, type: 3}
+      propertyPath: unitHealth
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 14b97f7c4a7bd564aad7a8acc6780b92, type: 3}
+      propertyPath: unitAttackRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 166757872629194286, guid: 14b97f7c4a7bd564aad7a8acc6780b92,
         type: 3}
       propertyPath: m_RootOrder
@@ -1890,6 +1910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd478abff640ad42acf84c1c17211f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedUnit: {fileID: 0}
+  attackedUnit: {fileID: 0}
   moveStep: 2
   tilesContaainter: {fileID: 1595386984}
   unitsContainer: {fileID: 1230557279}
@@ -11377,8 +11399,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1230557280}
     m_Modifications:
     - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
+      propertyPath: unitArmor
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
       propertyPath: unitSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
+      propertyPath: unitAttack
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
+      propertyPath: unitHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335588144, guid: 56a757053736a8a438d53c835435a00e, type: 3}
+      propertyPath: unitAttackRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 166757872629194286, guid: 56a757053736a8a438d53c835435a00e,
         type: 3}
@@ -11455,6 +11497,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1230557280}
     m_Modifications:
+    - target: {fileID: 4651716110852302946, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4651716110852302947, guid: cc290df1240df5349b82ec40e6ce21a4,
         type: 3}
       propertyPath: m_RootOrder
@@ -11514,6 +11561,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pink-orb
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818365955129951101, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818365955129951101, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: unitArmor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818365955129951101, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: unitAttack
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818365955129951101, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: unitHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818365955129951101, guid: cc290df1240df5349b82ec40e6ce21a4,
+        type: 3}
+      propertyPath: unitAttackRange
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc290df1240df5349b82ec40e6ce21a4, type: 3}

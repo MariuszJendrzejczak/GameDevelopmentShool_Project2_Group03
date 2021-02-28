@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.WSA;
 
@@ -11,8 +12,7 @@ public class GameManager : MonoBehaviour
         get { return instance; }
     }
     
-    private Unit selectedUnit;
-    private int selectedSpeed;
+    public Unit selectedUnit, attackedUnit;
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
@@ -43,17 +43,24 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UnitSelectionMethod();
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (GameObject obj in unitsList)
+            {
+                obj.GetComponent<Unit>().NewTurnForUnit();
+            }
+        }
     }
 
     private void UnitSelectionMethod()
     {
         if (selectedUnit)
         {
-            if (selectedUnit.hasMoved == false)
+            if (selectedUnit.canMove)
             {
                 foreach (GameObject tile in tilesList)
                 {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedSpeed + 0.5f)
+                    if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedUnit.unitSpeed + 0.5f)
                     {
                         Tile obj = tile.GetComponent<Tile>();
                         obj.HighLightMe(Color.red);
@@ -61,21 +68,21 @@ public class GameManager : MonoBehaviour
                 }
                 foreach (GameObject unit in unitsList)
                 {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedSpeed + 1.5f)
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnit.unitAttackRange + 0.5f)
                     {
                         Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.green);
+                        obj.HighLightMe(Color.black);
                     }
                 }
             }
-            else
+            else if (selectedUnit.canAtteck)
             {
                 foreach (GameObject unit in unitsList)
                 {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= 1.5f)
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnit.unitAttackRange + 0.5f)
                     {
                         Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.green);
+                        obj.HighLightMe(Color.black);
                     }
                 }
             }
@@ -91,17 +98,39 @@ public class GameManager : MonoBehaviour
             {
                 unit.GetComponent<Unit>().UnHighLightMe();
             }
-         
-            Debug.Log("Unselected");
         }
     }
-    public void UnitSelection(Unit unit, int speed)
+    public void AfterAttack()
+    {
+        selectedUnit.canAtteck = false;
+        foreach (GameObject tile in tilesList)
+            if (tile.GetComponent<Tile>().isWalkAble)
+            {
+                tile.GetComponent<Tile>().UnHighLightMe();
+            }
+        foreach (GameObject unit in unitsList)
+        { 
+            unit.GetComponent<Unit>().UnHighLightMe();  
+        }
+        
+        UnitSelection(null);
+    }
+    public void CounterAttack()
+    {
+        selectedUnit.TakeCounterDamage(attackedUnit.unitAttack);
+        attackedUnit.canCounter = false;
+        attackedUnit = null;
+    }
+    public void UnitSelection(Unit unit)
     {
         selectedUnit = unit;
-        selectedSpeed = speed;
     }
     public void MoveUnit(Vector2 value)
     {
         selectedUnit.StartMovement(value, moveStep);
+    }
+    public void GrabHaldeToAttacked(Unit attacked)
+    {
+        attackedUnit = attacked;
     }
 }
