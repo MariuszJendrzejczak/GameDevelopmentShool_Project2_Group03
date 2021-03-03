@@ -5,22 +5,31 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-
+    public enum Owner { non, leftPlayer, RightPlayer}
+    [SerializeField]
+    public Owner owner;
 
     private SpriteRenderer renderer;
     private bool isSelected = false;
     [SerializeField]
+    private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
     public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
     public bool canMove, canAtteck, canCounter, isAtteckable = false;
-    private int startingHP;
+
+    private void Awake()
+    {
+        renderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
+        // poniższe do wrzucenia w stan, przed turą
         canMove = true;
         canAtteck = true;
         canCounter = true;
-        renderer = GetComponent<SpriteRenderer>();
-        startingHP = unitHealth;
+
+        SetBaseStatisticValues();
+        unitHealth = baseUnitHealth;
     }
     private void OnMouseDown()
     {
@@ -42,6 +51,13 @@ public class Unit : MonoBehaviour
             }
         }
         
+    }
+    public void SetBaseStatisticValues()
+    {
+        unitSpeed = baseUnitSpeed;
+        unitArmor = baseUnitArmor;
+        unitAttack = baseUnitAttack;
+        unitAttackRange = baseUnitAttackRange;
     }
 
     public void StartMovement(Vector2 value, float moveStep)
@@ -68,7 +84,7 @@ public class Unit : MonoBehaviour
             {
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
-                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + startingHP);
+                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
             }
             else
             {
@@ -95,7 +111,7 @@ public class Unit : MonoBehaviour
             {
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking CouterDamage:" + (value - unitArmor));
-                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + startingHP);
+                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
             }
             if (unitHealth <= 0)
             {
@@ -104,7 +120,16 @@ public class Unit : MonoBehaviour
             }
         }
     }
-    public void NewTurnForUnit()
+    
+    public void GetBonus(int attack, int armor, int speed, int attackRange)
+    {
+        unitAttack += attack;
+        unitArmor += armor;
+        unitSpeed += speed;
+        unitAttackRange += attackRange;
+    }
+
+    public void NewTurnForUnit() // być może do wywalenie później
     {
         canAtteck = true;
         canCounter = true;

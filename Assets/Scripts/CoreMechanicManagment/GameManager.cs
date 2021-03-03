@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.WSA;
@@ -12,22 +13,26 @@ public class GameManager : MonoBehaviour
         get { return instance; }
     }
     
+    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame}
+    public GameState gameState;
     public Unit selectedUnit, attackedUnit;
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
     private GameObject tilesContaainter, unitsContainer;
     [SerializeField]
-    private List<GameObject> tilesList, unitsList;
+    private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
+    private List<GameObject> leftPlayerUnitList, rightPlayerUnitList;
     
 
     private void Awake()
     {
         instance = this;
+        gameState = GameState.MainManu;
+        CMEventBroker.ChangeGameState += EnterNewState;
     }
     private void Start()
     {
-
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
         for (int i = 0; i < tilesContaainter.transform.childCount; i++)
@@ -42,13 +47,74 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        UnitSelectionMethod();
+        switch (gameState)
+        {
+            case GameState.MainManu:
+                // 1. Wybór opcji z MainManu, ustawianie parametrów tj. imiona graczy, itp.
+                break;
+            case GameState.UnitChoosing:
+                // 1. OnMauseClick na wyświetlonej jednostce, umieszcza ją w liście jednostek danego gracza. Zaimplementować w skrypcie Unit! (leftPlayerUnitList, rightPlayerUnitList)
+                break;
+            case GameState.DeploymentLeft:
+                // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
+                // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
+                break;
+            case GameState.DeploymentRight:
+                break;
+            case GameState.LeftPlayerBeforeTurn:
+                break;
+            case GameState.LeftPlayerTurn:
+                // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
+                break;
+            case GameState.RightPlayerBeforeTurn:
+                break;
+            case GameState.RightPlayerTurn:
+                // 1 Analogicznie dla prawego gracza
+                break;
+            case GameState.EndGame:
+                //1. Gdy zmienna victorycondition zostanie osiągnięta (bool), blokujemy grę, wyświetlamy ekran końcowy lub podsumowanie itp. Możliwość wejścia do main manu. 
+                break;
+        }
+
+                UnitSelectionMethod();
         if (Input.GetKeyDown(KeyCode.T))
         {
             foreach (GameObject obj in unitsList)
             {
                 obj.GetComponent<Unit>().NewTurnForUnit();
             }
+        }
+    }
+
+    public void EnterNewState()
+    {
+        switch (gameState)
+        {
+            case GameState.MainManu:
+                // 1. Reset/SetUp/zerowanie ustawień na początek gry. 
+                break;
+            case GameState.UnitChoosing:
+                // 1. wyświetlenie sceny z wyborem jednostek.
+                // 2. wyświetlenie dostępnych jednostek (perp scena)
+                break;
+            case GameState.DeploymentLeft:
+                // 1. Wyświetlenie panelu z jednostkami do umieszczenia na planszy dla poszczególnych graczy.
+                break;
+            case GameState.DeploymentRight:
+                break;
+            case GameState.LeftPlayerBeforeTurn:
+                // 1. Resetowanie boolenów jednostek lewego gracza (tj. canAttack, canMove, canCounter), colddawny jeśli będą. Przygotowanie jednostek lewego gracza przed turą.
+                break;
+            case GameState.LeftPlayerTurn:
+                break;
+            case GameState.RightPlayerBeforeTurn:
+                // 1. Analogicznie dla prawego gracza
+                break;
+            case GameState.RightPlayerTurn:
+                break;
+            case GameState.EndGame:
+                // 1. Przygotowanie podsumowania gry (matematyka)
+                break;
         }
     }
 
