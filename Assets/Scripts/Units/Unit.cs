@@ -15,7 +15,7 @@ public class Unit : MonoBehaviour
     private bool isSelected = false;
     [SerializeField]
     private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
-    public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
+    private int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
     public bool canMove, canAtteck, canCounter, isAtteckable = false;
 
     private void Awake()
@@ -38,12 +38,12 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.selectedUnit == this)
         {
-            GameManager.Instance.UnitSelection(null);
+            GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
             isSelected = false;
         }
         else if (GameManager.Instance.selectedUnit == null)
         {
-            GameManager.Instance.UnitSelection(this);
+            GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
             isSelected = true;
         }
         else if (GameManager.Instance.selectedUnit != null)
@@ -53,7 +53,14 @@ public class Unit : MonoBehaviour
                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
             }
         }
-        
+    }
+
+    private void OnMouseEnter()
+    {
+        if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+        {
+            // miejsce do wywołania eventu gdy mamy wybrany unit w grze, i najeżdżamy na inny unit, żęby przekazać tego unitu statystyki do UI (np. OnMauseEntarOnEnemy)
+        }
     }
     private void ChangeMode()
     {
@@ -113,7 +120,7 @@ public class Unit : MonoBehaviour
             }
             if (unitHealth > 0)
             {
-                GameManager.Instance.GrabHaldeToAttacked(this);
+                GameManager.Instance.GrabHaldeToAttacked(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                 GameManager.Instance.CounterAttack();
             }
             else

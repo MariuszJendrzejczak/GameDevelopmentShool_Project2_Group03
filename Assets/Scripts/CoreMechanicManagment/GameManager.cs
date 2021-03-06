@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public enum GameMode { DeveloperMode, NormalMode}
     public GameMode gameMode;
     public Unit selectedUnit, attackedUnit;
+    private int selectedUnitattack, selectedUnitArmor, selectedUnitSpeed, selectedUnitAttackRange, selectedUnitHealth;
+    private int attackedUnitattack, attackedUnitArmor, attackedUnitSpeed, attackedUnitAttackRange, attackedUnitHealth;
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         CMEventBroker.ChangeGameState += EnterNewState;
-        CMEventBroker.ChangeGameMode += ChangeGameMode;
+        CMEventBroker.ChangeGameMode += GameModeChanged;
 
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
@@ -48,11 +50,21 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < unitsContainer.transform.childCount; i++)
         {
             unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-        }
-        
+        }  
     }
 
     private void Update()
+    {
+        StateUpdateCall();
+        UnitSelectionMethod();
+        KaybordIntputOnScen();
+
+
+
+
+    }
+
+    private void StateUpdateCall()
     {
         switch (gameState)
         {
@@ -82,16 +94,60 @@ public class GameManager : MonoBehaviour
                 //1. Gdy zmienna victorycondition zostanie osiągnięta (bool), blokujemy grę, wyświetlamy ekran końcowy lub podsumowanie itp. Możliwość wejścia do main manu. 
                 break;
         }
+    }
 
-                UnitSelectionMethod();
-        if (Input.GetKeyDown(KeyCode.T))
+    private void UnitSelectionMethod()
+    {
+        if (selectedUnit)
         {
-            foreach (GameObject obj in unitsList)
+            if (selectedUnit.canMove)
             {
-                obj.GetComponent<Unit>().NewTurnForUnit();
+                foreach (GameObject tile in tilesList)
+                {
+                    if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedUnitSpeed + 0.5f)
+                    {
+                        Tile obj = tile.GetComponent<Tile>();
+                        obj.HighLightMe(Color.red);
+                    }
+                }
+                foreach (GameObject unit in unitsList)
+                {
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
+                    {
+                        Unit obj = unit.GetComponent<Unit>();
+                        obj.HighLightMe(Color.black);
+                    }
+                }
+            }
+            else if (selectedUnit.canAtteck)
+            {
+                foreach (GameObject unit in unitsList)
+                {
+                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
+                    {
+                        Unit obj = unit.GetComponent<Unit>();
+                        obj.HighLightMe(Color.black);
+                    }
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        else
+        {
+            foreach (GameObject tile in tilesList)
+                if (tile.GetComponent<Tile>().isWalkAble)
+                {
+                    tile.GetComponent<Tile>().UnHighLightMe();
+                }
+            foreach (GameObject unit in unitsList)
+            {
+                unit.GetComponent<Unit>().UnHighLightMe();
+            }
+        }
+    }
+
+    private void KaybordIntputOnScen()
+    {
+        if (Input.GetKeyDown(KeyCode.Q)) // sposób zmieniania trybu do zmiany w późniejszym czasie.
         {
             if (gameMode == GameMode.DeveloperMode)
             {
@@ -104,9 +160,17 @@ public class GameManager : MonoBehaviour
             CMEventBroker.CallChangeGameMode();
             Debug.Log(gameMode);
         }
+        // kod tymczasowy, do usunięcie po zaimplementowaniu pełej maszyny stanów.
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (GameObject obj in unitsList)
+            {
+                obj.GetComponent<Unit>().NewTurnForUnit();
+            }
+        }
     }
 
-    public void ChangeGameMode()
+    public void GameModeChanged()
     {
         //tutaj się coś będzie działo, jak się będzie zmieniał tryb gry
         switch (gameMode)
@@ -150,54 +214,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UnitSelectionMethod()
-    {
-        if (selectedUnit)
-        {
-            if (selectedUnit.canMove)
-            {
-                foreach (GameObject tile in tilesList)
-                {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - tile.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - tile.transform.position.y) <= selectedUnit.unitSpeed + 0.5f)
-                    {
-                        Tile obj = tile.GetComponent<Tile>();
-                        obj.HighLightMe(Color.red);
-                    }
-                }
-                foreach (GameObject unit in unitsList)
-                {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnit.unitAttackRange + 0.5f)
-                    {
-                        Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.black);
-                    }
-                }
-            }
-            else if (selectedUnit.canAtteck)
-            {
-                foreach (GameObject unit in unitsList)
-                {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnit.unitAttackRange + 0.5f)
-                    {
-                        Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.black);
-                    }
-                }
-            }
-        }
-        else
-        {
-            foreach (GameObject tile in tilesList)
-                if (tile.GetComponent<Tile>().isWalkAble)
-                {
-                    tile.GetComponent<Tile>().UnHighLightMe();
-                }
-            foreach (GameObject unit in unitsList)
-            {
-                unit.GetComponent<Unit>().UnHighLightMe();
-            }
-        }
-    }
     public void AfterAttack()
     {
         selectedUnit.canAtteck = false;
@@ -211,24 +227,43 @@ public class GameManager : MonoBehaviour
             unit.GetComponent<Unit>().UnHighLightMe();  
         }
         
-        UnitSelection(null);
+        UnitSelection(null, 0,0,0,0,0);
     }
+
     public void CounterAttack()
     {
-        selectedUnit.TakeCounterDamage(attackedUnit.unitAttack);
+        selectedUnit.TakeCounterDamage(attackedUnitattack);
         attackedUnit.canCounter = false;
         attackedUnit = null;
     }
-    public void UnitSelection(Unit unit)
+
+    public void UnitSelection(Unit unit, int attack, int armor, int healt, int speed, int attackRange)
     {
         selectedUnit = unit;
+        selectedUnitattack = attack;
+        selectedUnitArmor = armor;
+        selectedUnitHealth = healt;
+        selectedUnitSpeed = speed;
+        selectedUnitAttackRange = attackRange;
+        // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
+        // UICallUnitWasSelected(); - tutaj, 
+        // deklaracja eventu i calla w UIEventBroker,
+        // UIEventBroker.UnitWasSelected += Metoda która przekazuje wartości w UIManagerze. 
     }
+
     public void MoveUnit(Vector2 value)
     {
         selectedUnit.StartMovement(value, moveStep);
     }
-    public void GrabHaldeToAttacked(Unit attacked)
+
+    public void GrabHaldeToAttacked(Unit attacked, int attack, int armor, int healt, int speed, int attackRange)
     {
         attackedUnit = attacked;
+        attackedUnitattack = attack;
+        attackedUnitArmor = armor;
+        attackedUnitHealth = healt;
+        attackedUnitSpeed = speed;
+        attackedUnitAttackRange = attackRange;
+        // miejsce do wywałanie eventu do UI, przekazującego prametry zaatakowanego unitu do wyświetlanie (np. UnitAttacked)
     }
 }
