@@ -58,10 +58,6 @@ public class GameManager : MonoBehaviour
         StateUpdateCall();
         UnitSelectionMethod();
         KaybordIntputOnScen();
-
-
-
-
     }
 
     private void StateUpdateCall()
