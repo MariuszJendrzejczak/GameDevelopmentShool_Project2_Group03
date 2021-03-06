@@ -10,6 +10,8 @@ public class Unit : MonoBehaviour
     public Owner owner;
 
     private SpriteRenderer renderer;
+    [SerializeField]
+    private Sprite developmentModeSprite, normalModeSprote;
     private bool isSelected = false;
     [SerializeField]
     private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
@@ -23,6 +25,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
+        CMEventBroker.ChangeGameMode += ChangeMode;
         // poniższe do wrzucenia w stan, przed turą
         canMove = true;
         canAtteck = true;
@@ -51,6 +54,24 @@ public class Unit : MonoBehaviour
             }
         }
         
+    }
+    private void ChangeMode()
+    {
+        switch (GameManager.Instance.gameMode)
+        {
+            case GameManager.GameMode.DeveloperMode:
+                if (developmentModeSprite)
+                {
+                    renderer.sprite = developmentModeSprite;
+                }
+                break;
+            case GameManager.GameMode.NormalMode:
+                if (normalModeSprote)
+                {
+                    renderer.sprite = normalModeSprote;
+                }
+                break;
+        }
     }
     public void SetBaseStatisticValues()
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor.PackageManager.Requests;
 using UnityEditorInternal;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     
     public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame}
     public GameState gameState;
+    public enum GameMode { DeveloperMode, NormalMode}
+    public GameMode gameMode;
     public Unit selectedUnit, attackedUnit;
     [SerializeField]
     private float moveStep = 0.04f;
@@ -29,10 +32,13 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         gameState = GameState.MainManu;
-        CMEventBroker.ChangeGameState += EnterNewState;
+
     }
     private void Start()
     {
+        CMEventBroker.ChangeGameState += EnterNewState;
+        CMEventBroker.ChangeGameMode += ChangeGameMode;
+
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
         for (int i = 0; i < tilesContaainter.transform.childCount; i++)
@@ -43,6 +49,7 @@ public class GameManager : MonoBehaviour
         {
             unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
         }
+        
     }
 
     private void Update()
@@ -83,6 +90,31 @@ public class GameManager : MonoBehaviour
             {
                 obj.GetComponent<Unit>().NewTurnForUnit();
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (gameMode == GameMode.DeveloperMode)
+            {
+                gameMode = GameMode.NormalMode;
+            }
+            else if (gameMode == GameMode.NormalMode)
+            {
+                gameMode = GameMode.DeveloperMode;
+            }
+            CMEventBroker.CallChangeGameMode();
+            Debug.Log(gameMode);
+        }
+    }
+
+    public void ChangeGameMode()
+    {
+        //tutaj się coś będzie działo, jak się będzie zmieniał tryb gry
+        switch (gameMode)
+        {
+            case GameMode.DeveloperMode:
+                break;
+            case GameMode.NormalMode:
+                break;
         }
     }
 
