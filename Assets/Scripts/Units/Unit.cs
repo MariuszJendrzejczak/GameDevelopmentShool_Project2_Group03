@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public enum Owner { non, leftPlayer, RightPlayer}
+    public enum Owner {Humans, Elfes}
     [SerializeField]
     public Owner owner;
 
@@ -36,6 +36,13 @@ public class Unit : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        switch(GameManager.Instance.gameState)
+        {
+            case GameManager.GameState.UnitChoosing:
+                CMEventBroker.CallUnitChoosed(this.gameObject);
+                Debug.Log(this.name + "został wysłany (UnitScript)");
+                break;
+        }
         if (GameManager.Instance.selectedUnit == this)
         {
             GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
@@ -57,11 +64,41 @@ public class Unit : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        switch (GameManager.Instance.gameState)
+        {
+            case GameManager.GameState.UnitChoosing:
+                switch (owner)
+                {
+                    case Owner.Humans:
+                        break;
+                    case Owner.Elfes:
+                        break;
+                }
+                transform.localScale += Vector3.one * 1.5f;
+                break;
+        }
+        if (GameManager.Instance.gameState == GameManager.GameState.UnitChoosing)
+        {
+            // kod co ma się zadzaiać jak jednostka będzie wybrana (kliknięta) 
+          
+        }
         if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
             // miejsce do wywołania eventu gdy mamy wybrany unit w grze, i najeżdżamy na inny unit, żęby przekazać tego unitu statystyki do UI (np. OnMauseEntarOnEnemy)
         }
     }
+
+    private void OnMouseExit()
+    {
+
+        switch (GameManager.Instance.gameState)
+        {
+            case GameManager.GameState.UnitChoosing:
+                transform.localScale -= Vector3.one * 1.5f;
+                break;
+        }
+    }
+
     private void ChangeMode()
     {
         switch (GameManager.Instance.gameMode)

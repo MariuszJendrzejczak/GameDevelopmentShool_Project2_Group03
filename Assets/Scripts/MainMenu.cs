@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        GameManager.Instance.gameState = GameManager.GameState.UnitChoosing; // zmiena stanu gry
+        CMEventBroker.CallChangeGameState(); // wywołanie eventu po zmianie stanu gry
     }
 
     public void QuitGame()

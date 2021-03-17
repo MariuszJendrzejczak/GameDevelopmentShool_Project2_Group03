@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     private GameObject tilesContaainter, unitsContainer;
     [SerializeField]
     private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
-    private List<GameObject> leftPlayerUnitList, rightPlayerUnitList;
+    [SerializeField]
+    private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     
 
     private void Awake()
@@ -40,17 +41,18 @@ public class GameManager : MonoBehaviour
     {
         CMEventBroker.ChangeGameState += EnterNewState;
         CMEventBroker.ChangeGameMode += GameModeChanged;
+        CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
 
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
-        for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+        /*for (int i = 0; i < tilesContaainter.transform.childCount; i++)
         {
             tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
         }
         for (int i = 0; i < unitsContainer.transform.childCount; i++)
         {
             unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-        }  
+        }  */
     }
 
     private void Update()
@@ -71,6 +73,9 @@ public class GameManager : MonoBehaviour
                 // 1. OnMauseClick na wyświetlonej jednostce, umieszcza ją w liście jednostek danego gracza. Zaimplementować w skrypcie Unit! (leftPlayerUnitList, rightPlayerUnitList)
                 break;
             case GameState.DeploymentLeft:
+                //sekcja przygotowujaca gamemanagerza do głownej sceny gry (łapanie referencji do objektów)
+                tilesContaainter = GameObject.Find("TilesContainer");
+                unitsContainer = GameObject.Find("UnitsContainer");
                 // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
                 // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
                 break;
@@ -261,5 +266,17 @@ public class GameManager : MonoBehaviour
         attackedUnitSpeed = speed;
         attackedUnitAttackRange = attackRange;
         // miejsce do wywałanie eventu do UI, przekazującego prametry zaatakowanego unitu do wyświetlanie (np. UnitAttacked)
+    }
+
+    public void SetUpChoosedUnitLists( List<GameObject> humans, List<GameObject> elfes)
+    {
+        foreach(GameObject unit in humans)
+        {
+            humanPlayerUnitList.Add(unit);
+        }
+        foreach(GameObject unit in elfes)
+        {
+            elfesPlayerUnitList.Add(unit);
+        }
     }
 }
