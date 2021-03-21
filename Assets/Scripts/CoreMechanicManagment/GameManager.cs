@@ -45,14 +45,6 @@ public class GameManager : MonoBehaviour
 
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
-        /*for (int i = 0; i < tilesContaainter.transform.childCount; i++)
-        {
-            tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
-        }
-        for (int i = 0; i < unitsContainer.transform.childCount; i++)
-        {
-            unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-        }  */
     }
 
     private void Update()
@@ -76,6 +68,14 @@ public class GameManager : MonoBehaviour
                 //sekcja przygotowujaca gamemanagerza do głownej sceny gry (łapanie referencji do objektów)
                 tilesContaainter = GameObject.Find("TilesContainer");
                 unitsContainer = GameObject.Find("UnitsContainer");
+                for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+                {
+                    tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+                }
+                for (int i = 0; i < unitsContainer.transform.childCount; i++)
+                {
+                    unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
+                }
                 // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
                 // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
                 break;
