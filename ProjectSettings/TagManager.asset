@@ -42,12 +42,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
-    uniqueID: 2425651459
-    locked: 0
   - name: Layer 2
     uniqueID: 4250941897
     locked: 0
   - name: Layer 3
     uniqueID: 4189426099
+    locked: 0
+  - name: FlagStone
+    uniqueID: 986756725
+    locked: 0
+  - name: Depths
+    uniqueID: 2425651459
+    locked: 0
+  - name: River Bank
+    uniqueID: 802565535
+    locked: 0
+  - name: Ground&Pallisade
+    uniqueID: 1602838035
+    locked: 0
+  - name: Objects
+    uniqueID: 859444829
+    locked: 0
+  - name: Units
+    uniqueID: 3576957255
+    locked: 0
+  - name: New Layer
+    uniqueID: 296889811
     locked: 0
