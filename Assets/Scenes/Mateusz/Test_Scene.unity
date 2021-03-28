@@ -4703,51 +4703,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195534185}
     m_Modifications:
-<<<<<<< HEAD
     - target: {fileID: -9127705785090216860, guid: ac7ec2813b87eb046b0358b04bcdd518,
-=======
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 986756725
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 133
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.12083176
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -4794,30 +4750,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
-<<<<<<< HEAD
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7456966b75aef0f4c9d95c21e274aa3d,
-=======
-      propertyPath: m_Name
-      value: FlagStone (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4788112597972951753, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_TagString
-      value: StoneTile
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 050a0e364bbaa024da44e3f31250f658, type: 3}
---- !u!1001 &310797888
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1195534185}
-    m_Modifications:
-    - target: {fileID: 1323107554209656443, guid: ac7ec2813b87eb046b0358b04bcdd518,
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
         type: 3}
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
@@ -11700,11 +11635,7 @@ PrefabInstance:
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
       propertyPath: m_SortingLayer
-<<<<<<< HEAD
       value: 1
-=======
-      value: 3
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
       objectReference: {fileID: 0}
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
@@ -11847,27 +11778,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 7456966b75aef0f4c9d95c21e274aa3d,
         type: 3}
-<<<<<<< HEAD
-=======
-      propertyPath: m_Name
-      value: Tiles_0 (188)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5647473063362973082, guid: ac7ec2813b87eb046b0358b04bcdd518,
-        type: 3}
-      propertyPath: hoverColor.b
-      value: 0.28555533
-      objectReference: {fileID: 0}
-    - target: {fileID: 5647473063362973082, guid: ac7ec2813b87eb046b0358b04bcdd518,
-        type: 3}
-      propertyPath: hoverColor.g
-      value: 0.28555533
-      objectReference: {fileID: 0}
-    - target: {fileID: 5647473063362973082, guid: ac7ec2813b87eb046b0358b04bcdd518,
-        type: 3}
-      propertyPath: hoverColor.r
-      value: 0.6509434
-      objectReference: {fileID: 0}
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
       propertyPath: m_SortingLayer
@@ -12554,46 +12464,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195534185}
     m_Modifications:
-<<<<<<< HEAD
     - target: {fileID: -9127705785090216860, guid: ac7ec2813b87eb046b0358b04bcdd518,
-=======
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 986756725
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 136
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.12509641
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13560,11 +13431,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayerID
       value: 986756725
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: hoverAmount
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
         type: 3}
@@ -16568,32 +16434,12 @@ PrefabInstance:
     - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
         type: 3}
       propertyPath: m_SortingLayerID
       value: 986756725
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: hoverAmount
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: startcolor.b
-      value: 0.7735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: startcolor.g
-      value: 0.25907797
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: startcolor.r
-      value: 0.25907797
       objectReference: {fileID: 0}
     - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
         type: 3}
@@ -17970,7 +17816,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path1 (26)
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2aa846ef938f7449a13e820a4448723, type: 3}
 --- !u!1 &1195534184
@@ -18330,24 +18175,6 @@ PrefabInstance:
       value: -44025399
       objectReference: {fileID: 0}
     - target: {fileID: 7432406299583528430, guid: ac7ec2813b87eb046b0358b04bcdd518,
-=======
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: hoverColor.b
-      value: 0.20799215
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: hoverColor.g
-      value: 0.21389507
-      objectReference: {fileID: 0}
-    - target: {fileID: 2193691247847866664, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: hoverColor.r
-      value: 0.7735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 3966372077585330524, guid: 050a0e364bbaa024da44e3f31250f658,
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
         type: 3}
       propertyPath: m_RootOrder
       value: 94
@@ -18417,19 +18244,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
-    - target: {fileID: 4788112597972951753, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_Name
-      value: FlagStone (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4788112597972951753, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_TagString
-      value: StoneTile
-      objectReference: {fileID: 0}
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac7ec2813b87eb046b0358b04bcdd518, type: 3}
 --- !u!4 &1207894506 stripped
@@ -19912,16 +19726,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195534185}
     m_Modifications:
-<<<<<<< HEAD
     - target: {fileID: -9127705785090216860, guid: ac7ec2813b87eb046b0358b04bcdd518,
-=======
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 536838898102150899, guid: 050a0e364bbaa024da44e3f31250f658,
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
         type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -22177,11 +21982,7 @@ PrefabInstance:
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
       propertyPath: m_SortingLayer
-<<<<<<< HEAD
       value: 1
-=======
-      value: 3
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
       objectReference: {fileID: 0}
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
@@ -22528,11 +22329,7 @@ PrefabInstance:
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
       propertyPath: m_SortingLayer
-<<<<<<< HEAD
       value: 1
-=======
-      value: 3
->>>>>>> 666b9907121cf784bc2abd8e025d6c7a3f45ead1
       objectReference: {fileID: 0}
     - target: {fileID: 6295302646872992321, guid: ac7ec2813b87eb046b0358b04bcdd518,
         type: 3}
@@ -31777,11 +31574,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4788112597972951753, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_TagString
-      value: StoneTile
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 050a0e364bbaa024da44e3f31250f658, type: 3}
 --- !u!1001 &1958225585
@@ -34199,11 +33991,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: River_Bank4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4788112597972951753, guid: 050a0e364bbaa024da44e3f31250f658,
-        type: 3}
-      propertyPath: m_TagString
-      value: StoneTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebb4d3ccacf9a74894e79a9a779c4e4, type: 3}
