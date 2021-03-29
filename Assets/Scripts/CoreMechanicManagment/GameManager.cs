@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         get { return instance; }
     }
     
-    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame}
+    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame, SkillSwapUnits,}
     public GameState gameState;
     public enum GameMode { DeveloperMode, NormalMode}
     public GameMode gameMode;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         StateUpdateCall();
-        if (gameState == GameState.LeftPlayerTurn)
+        if (gameState == GameState.LeftPlayerTurn || gameState == GameState.RightPlayerTurn)
         {
             UnitSelectionMethod();
         }

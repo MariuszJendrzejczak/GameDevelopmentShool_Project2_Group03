@@ -88,6 +88,9 @@ public class Unit : MonoBehaviour
                     }
                 }
                 break;
+            case GameManager.GameState.SkillSwapUnits:
+                CMEventBroker.CallSwapUnitsPeak(this.gameObject);
+                break;
         }
     }
 
