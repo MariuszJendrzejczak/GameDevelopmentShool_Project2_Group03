@@ -14,8 +14,8 @@ public class Unit : MonoBehaviour
     private Sprite developmentModeSprite, normalModeSprote;
     private bool isSelected = false;
     [SerializeField]
-    private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
-    private int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
+    public int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
+    public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
     public bool canMove, canAtteck, canCounter, isAtteckable = false;
 
     private void Awake()
