@@ -61,7 +61,7 @@ public class Unit : MonoBehaviour
                         GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                         isSelected = true;
                     }
-                    else if (GameManager.Instance.selectedUnit != null && owner == Owner.Elfes)
+                    else if (GameManager.Instance.selectedUnit != null )//&& owner == Owner.Elfes)
                     {
                         if (isAtteckable)
                         {
@@ -96,8 +96,9 @@ public class Unit : MonoBehaviour
                             GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                             isSelected = true;
                         }
-                        else if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
+                        else if (GameManager.Instance.selectedUnit != null) //&& owner == Owner.Humans)
                         {
+                            Debug.Log("jestem tu");
                             if (sanctuary)
                             {
                                 // informacja o sanktuarium
