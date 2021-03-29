@@ -6,10 +6,11 @@ public class Tile : MonoBehaviour
 {
     private SpriteRenderer renderer;
     public bool isWalkAble = false;
-    private enum StartingTile { notStartingTile, leftPlayerStartingTile, rightPlayerStartingTile} // do użycia przy deployment State.
+    public enum StartingTile { notStartingTile, leftPlayerStartingTile, rightPlayerStartingTile} // do użycia przy deployment State.
     [SerializeField]
-    private StartingTile isStartingTile;
-
+    public StartingTile isStartingTile;
+    private enum TileState { WalkAble, Ocupated, Obstacle}
+    private TileState tileState;
 
     void Start()
     {
@@ -20,22 +21,13 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.gameState == GameManager.GameState.DeploymentLeft && isStartingTile == StartingTile.leftPlayerStartingTile)
-        {
-            HighLightMe(Color.green);
-            isWalkAble = true;
-        }
-        if (GameManager.Instance.gameState == GameManager.GameState.DeploymentRight && isStartingTile == StartingTile.rightPlayerStartingTile)
-        {
-            HighLightMe(Color.green);
-            isWalkAble = true;
-        }
     }
 
     public void HighLightMe(Color color)
     {
         renderer.color = color;
         isWalkAble = true;
+        Debug.Log("aaa");
     }
 
     public void UnHighLightMe()
@@ -54,6 +46,27 @@ public class Tile : MonoBehaviour
         else
         {
             Debug.Log("Out of range");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(tileState != TileState.Obstacle)
+        {
+            if (collision.tag == "Unit")
+            {
+                tileState = TileState.Ocupated;
+            }
+        }     
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (tileState != TileState.Obstacle)
+        {
+            if (collision.tag == "Unit")
+            {
+                tileState = TileState.Ocupated;
+            }
         }
     }
 }

@@ -47,4 +47,12 @@ public class CMEventBroker
             AllUnitsChoosed(humans, elfes);
         }
     }
+    public static event Action<GameObject> SwapUnitsPeak;
+    public static void CallSwapUnitsPeak(GameObject unit)
+    {
+        if (SwapUnitsPeak != null)
+        {
+            SwapUnitsPeak(unit);
+        }
+    }
 }

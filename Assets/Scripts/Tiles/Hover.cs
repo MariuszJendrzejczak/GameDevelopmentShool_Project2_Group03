@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileHover : MonoBehaviour
+public class Hover : MonoBehaviour
 {
     /* [SerializeField][Tooltip("Using this varable You can channge Hover effect when mause enters and exits a tile")]
      private float hoverAmount;

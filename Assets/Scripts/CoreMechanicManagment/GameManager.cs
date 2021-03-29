@@ -13,14 +13,16 @@ public class GameManager : MonoBehaviour
     {
         get { return instance; }
     }
-
-    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame }
+    
+    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame, SkillSwapUnits,}
     public GameState gameState;
-    public enum GameMode { DeveloperMode, NormalMode }
+    public enum GameMode { DeveloperMode, NormalMode}
     public GameMode gameMode;
     public Unit selectedUnit, attackedUnit;
     private int selectedUnitattack, selectedUnitArmor, selectedUnitSpeed, selectedUnitAttackRange, selectedUnitHealth;
     private int attackedUnitattack, attackedUnitArmor, attackedUnitSpeed, attackedUnitAttackRange, attackedUnitHealth;
+    [SerializeField]
+    Color startingTileHighlightColor, moveRangeHighlightColor, attackAbleUnitHighlightColor;
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
     [SerializeField]
     private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
-
+    
 
     private void Awake()
     {
@@ -43,7 +45,6 @@ public class GameManager : MonoBehaviour
         CMEventBroker.ChangeGameMode += GameModeChanged;
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
 
-
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
     }
@@ -51,8 +52,79 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         StateUpdateCall();
-        UnitSelectionMethod();
+        if (gameState == GameState.LeftPlayerTurn || gameState == GameState.RightPlayerTurn)
+        {
+            UnitSelectionMethod();
+        }
         KaybordIntputOnScen();
+        if (Input.GetKeyDown(KeyCode.N))
+            CMEventBroker.CallChangeGameState();
+    }
+
+    public void EnterNewState()
+    {
+        switch (gameState)
+        {
+            case GameState.MainManu:
+                // 1. Reset/SetUp/zerowanie ustawień na początek gry. 
+                break;
+            case GameState.UnitChoosing:
+                // 1. wyświetlenie sceny z wyborem jednostek.
+                // 2. wyświetlenie dostępnych jednostek (perp scena)
+                break;
+            case GameState.DeploymentLeft:
+                //przygotowanie sceny po UnitChoosing
+                tilesContaainter = GameObject.Find("TilesContainer");
+                unitsContainer = GameObject.Find("UnitsContainer");
+                for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+                {
+                    tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+                }
+                for (int i = 0; i < unitsContainer.transform.childCount; i++)
+                {
+                    unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
+                }
+
+                //podświetlenie startowych tilei
+                foreach (GameObject tile in tilesList)
+                {
+                    Tile tileScript = tile.GetComponent<Tile>();
+                    if (tileScript.isStartingTile == Tile.StartingTile.leftPlayerStartingTile)
+                    {
+                        tileScript.HighLightMe(Color.red);
+                        Debug.Log(tile.name);
+                    }
+
+                }
+                break;
+            case GameState.DeploymentRight:
+                foreach (GameObject tile in tilesList)
+                {
+                    tile.GetComponent<Tile>().UnHighLightMe();
+                }
+                foreach (GameObject tile in tilesList)
+                {
+                    Tile tileScript = tile.GetComponent<Tile>();
+                    if (tileScript.isStartingTile == Tile.StartingTile.rightPlayerStartingTile)
+                    {
+                        tileScript.HighLightMe(Color.red);
+                    }
+                }
+                break;
+            case GameState.LeftPlayerBeforeTurn:
+                // 1. Resetowanie boolenów jednostek lewego gracza (tj. canAttack, canMove, canCounter), colddawny jeśli będą. Przygotowanie jednostek lewego gracza przed turą.
+                break;
+            case GameState.LeftPlayerTurn:
+                break;
+            case GameState.RightPlayerBeforeTurn:
+                // 1. Analogicznie dla prawego gracza
+                break;
+            case GameState.RightPlayerTurn:
+                break;
+            case GameState.EndGame:
+                // 1. Przygotowanie podsumowania gry (matematyka)
+                break;
+        }
     }
 
     private void StateUpdateCall()
@@ -67,16 +139,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.DeploymentLeft:
                 //sekcja przygotowujaca gamemanagerza do głownej sceny gry (łapanie referencji do objektów)
-                tilesContaainter = GameObject.Find("TilesContainer");
-                unitsContainer = GameObject.Find("UnitsContainer");
-                for (int i = 0; i < tilesContaainter.transform.childCount; i++)
-                {
-                    tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
-                }
-                for (int i = 0; i < unitsContainer.transform.childCount; i++)
-                {
-                    unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-                }
                 // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
                 // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
                 break;
@@ -85,13 +147,11 @@ public class GameManager : MonoBehaviour
             case GameState.LeftPlayerBeforeTurn:
                 break;
             case GameState.LeftPlayerTurn:
-
                 // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
                 break;
             case GameState.RightPlayerBeforeTurn:
                 break;
             case GameState.RightPlayerTurn:
-
                 // 1 Analogicznie dla prawego gracza
                 break;
             case GameState.EndGame:
@@ -119,7 +179,7 @@ public class GameManager : MonoBehaviour
                     if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
                     {
                         Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.black);
+                        obj.HighLightMe(Color.red);
                     }
                 }
             }
@@ -127,10 +187,20 @@ public class GameManager : MonoBehaviour
             {
                 foreach (GameObject unit in unitsList)
                 {
+                    Unit obj = unit.GetComponent<Unit>();
                     if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
                     {
-                        Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.black);
+                        switch(gameState)
+                        {
+                            case GameState.LeftPlayerTurn:                               
+                                if (obj.owner == Unit.Owner.Elfes)
+                                obj.HighLightMe(Color.black);
+                                break;
+                            case GameState.RightPlayerTurn:
+                                if (obj.owner == Unit.Owner.Humans)
+                                    obj.HighLightMe(Color.black);
+                                break;
+                        }
                     }
                 }
             }
@@ -186,38 +256,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EnterNewState()
-    {
-        switch (gameState)
-        {
-            case GameState.MainManu:
-                // 1. Reset/SetUp/zerowanie ustawień na początek gry. 
-                break;
-            case GameState.UnitChoosing:
-                // 1. wyświetlenie sceny z wyborem jednostek.
-                // 2. wyświetlenie dostępnych jednostek (perp scena)
-                break;
-            case GameState.DeploymentLeft:
-                // 1. Wyświetlenie panelu z jednostkami do umieszczenia na planszy dla poszczególnych graczy.
-                break;
-            case GameState.DeploymentRight:
-                break;
-            case GameState.LeftPlayerBeforeTurn:
-                // 1. Resetowanie boolenów jednostek lewego gracza (tj. canAttack, canMove, canCounter), colddawny jeśli będą. Przygotowanie jednostek lewego gracza przed turą.
-                break;
-            case GameState.LeftPlayerTurn:
-
-                break;
-            case GameState.RightPlayerBeforeTurn:
-                // 1. Analogicznie dla prawego gracza
-                break;
-            case GameState.RightPlayerTurn:
-                break;
-            case GameState.EndGame:
-                // 1. Przygotowanie podsumowania gry (matematyka)
-                break;
-        }
-    }
+  
 
     public void AfterAttack()
     {
@@ -228,17 +267,16 @@ public class GameManager : MonoBehaviour
                 tile.GetComponent<Tile>().UnHighLightMe();
             }
         foreach (GameObject unit in unitsList)
-        {
-            unit.GetComponent<Unit>().UnHighLightMe();
+        { 
+            unit.GetComponent<Unit>().UnHighLightMe();  
         }
-
-        UnitSelection(null, 0, 0, 0, 0, 0);
+        
+        UnitSelection(null, 0,0,0,0,0);
     }
 
     public void CounterAttack()
     {
         selectedUnit.TakeCounterDamage(attackedUnitattack);
-        UIEventBroker.CallWasAttacked(this.gameObject);
         attackedUnit.canCounter = false;
         attackedUnit = null;
     }
@@ -251,16 +289,11 @@ public class GameManager : MonoBehaviour
         selectedUnitHealth = healt;
         selectedUnitSpeed = speed;
         selectedUnitAttackRange = attackRange;
-
-        UIEventBroker.CallUnitSelected(this.gameObject);
-
         // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
         // UICallUnitWasSelected(); - tutaj, 
         // deklaracja eventu i calla w UIEventBroker,
         // UIEventBroker.UnitWasSelected += Metoda która przekazuje wartości w UIManagerze. 
     }
-
-
 
     public void MoveUnit(Vector2 value)
     {
@@ -275,19 +308,16 @@ public class GameManager : MonoBehaviour
         attackedUnitHealth = healt;
         attackedUnitSpeed = speed;
         attackedUnitAttackRange = attackRange;
-
-        UIEventBroker.CallShakeCamera();
-        UIEventBroker.CallAtackedUnit(this.gameObject);
         // miejsce do wywałanie eventu do UI, przekazującego prametry zaatakowanego unitu do wyświetlanie (np. UnitAttacked)
     }
 
-    public void SetUpChoosedUnitLists(List<GameObject> humans, List<GameObject> elfes)
+    public void SetUpChoosedUnitLists( List<GameObject> humans, List<GameObject> elfes)
     {
-        foreach (GameObject unit in humans)
+        foreach(GameObject unit in humans)
         {
             humanPlayerUnitList.Add(unit);
         }
-        foreach (GameObject unit in elfes)
+        foreach(GameObject unit in elfes)
         {
             elfesPlayerUnitList.Add(unit);
         }

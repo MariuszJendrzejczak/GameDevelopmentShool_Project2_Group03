@@ -609,6 +609,9 @@ MonoBehaviour:
   gameMode: 0
   selectedUnit: {fileID: 0}
   attackedUnit: {fileID: 0}
+  startingTileHighlightColor: {r: 0, g: 1, b: 0.16104317, a: 0}
+  moveRangeHighlightColor: {r: 1, g: 0, b: 0, a: 0}
+  attackAbleUnitHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   moveStep: 2
   tilesContaainter: {fileID: 0}
   unitsContainer: {fileID: 0}
