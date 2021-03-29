@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         CMEventBroker.ChangeGameMode += GameModeChanged;
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
 
+        
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
     }
@@ -289,6 +290,8 @@ public class GameManager : MonoBehaviour
         selectedUnitHealth = healt;
         selectedUnitSpeed = speed;
         selectedUnitAttackRange = attackRange;
+
+        UIEventBroker.CallUnitSelected(this.gameObject);
         // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
         // UICallUnitWasSelected(); - tutaj, 
         // deklaracja eventu i calla w UIEventBroker,
