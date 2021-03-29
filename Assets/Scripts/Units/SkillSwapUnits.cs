@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlillSwapUnits : Skill
+public class SkillSwapUnits : Skill
 {
     [SerializeField]
     private GameObject unitToSwap1, unitToSwap2;

@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
     private SpriteRenderer renderer;
     [SerializeField]
     private Sprite developmentModeSprite, normalModeSprote;
-    private bool isSelected = false;
+    public bool isSelected = false, sanctuary = false;
     [SerializeField]
     public int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
     public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
@@ -59,7 +59,15 @@ public class Unit : MonoBehaviour
                     {
                         if (isAtteckable)
                         {
-                            TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                            if (sanctuary)
+                            {
+                                // informacja o sanktuarium
+                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                            }
+                            else
+                            {
+                                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                            }
                         }
                     }
                 }
@@ -80,7 +88,12 @@ public class Unit : MonoBehaviour
                         }
                         else if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
                         {
-                            if (isAtteckable)
+                            if (sanctuary)
+                            {
+                                // informacja o sanktuarium
+                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                            }
+                            else
                             {
                                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
                             }
