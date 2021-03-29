@@ -6,7 +6,7 @@ public class Skill : MonoBehaviour
 {
     [SerializeField]
     private Sprite activationButtonSprite, inactiveButtonSprite;
-    private Unit unit;
+    protected Unit unit;
     protected bool isActive, canBeActivated;
     // Start is called before the first frame update
     void Start()

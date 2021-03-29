@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public enum Owner {Humans, Elfes}
+    public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
-
+    public float x, y;
     private SpriteRenderer renderer;
     [SerializeField]
     private Sprite developmentModeSprite, normalModeSprote;
-    private bool isSelected = false;
+    public bool isSelected = false, sanctuary = false;
+    public bool passiveSkillPush = false;
     [SerializeField]
     public int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
     public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
@@ -33,6 +34,11 @@ public class Unit : MonoBehaviour
 
         SetBaseStatisticValues();
         unitHealth = baseUnitHealth;
+    }
+    private void Update()
+    {
+        x = transform.position.x;
+        y = transform.position.y;
     }
     private void OnMouseDown()
     {
@@ -59,7 +65,19 @@ public class Unit : MonoBehaviour
                     {
                         if (isAtteckable)
                         {
-                            TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                            if (sanctuary)
+                            {
+                                // informacja o sanktuarium
+                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                            }
+                            else
+                            {
+                                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                                if (GameManager.Instance.selectedUnit.passiveSkillPush)
+                                {
+                                    TakePush(GameManager.Instance.selectedUnit);
+                                }
+                            }
                         }
                     }
                 }
@@ -80,7 +98,12 @@ public class Unit : MonoBehaviour
                         }
                         else if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
                         {
-                            if (isAtteckable)
+                            if (sanctuary)
+                            {
+                                // informacja o sanktuarium
+                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                            }
+                            else
                             {
                                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
                             }
@@ -227,6 +250,29 @@ public class Unit : MonoBehaviour
         canAtteck = true;
         canCounter = true;
         canMove = true;
+        sanctuary = false;
+    }
+
+    public void TakePush(Unit unit)
+    {
+        float realativeX = x - unit.x;
+        float relativeY = y - unit.y;
+        if (realativeX > 0)
+        {
+            transform.position += new Vector3(-1,0,0);
+        }
+        else if (realativeX < 0)
+        {
+            transform.position += new Vector3(1, 0, 0);
+        }
+        if (relativeY > 0)
+        {
+            transform.position += new Vector3(0, -1, 0);
+        }
+        else if (relativeY < 0)
+        {
+            transform.position += new Vector3(0, 1, 0);
+        }
     }
 
     IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)
