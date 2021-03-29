@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public enum Owner { Humans, Elfes }
+    public enum Owner {Humans, Elfes}
     [SerializeField]
     public Owner owner;
 
@@ -15,16 +15,12 @@ public class Unit : MonoBehaviour
     private bool isSelected = false;
     [SerializeField]
     private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
-    public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
+    private int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
     public bool canMove, canAtteck, canCounter, isAtteckable = false;
-
-
-
 
     private void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
-
     }
 
     private void Start()
@@ -40,33 +36,58 @@ public class Unit : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        switch (GameManager.Instance.gameState)
+        switch(GameManager.Instance.gameState)
         {
             case GameManager.GameState.UnitChoosing:
                 CMEventBroker.CallUnitChoosed(this.gameObject);
                 Debug.Log(this.name + "został wysłany (UnitScript)");
                 break;
-        }
-        if (GameManager.Instance.selectedUnit == this)
-        {
-            GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
-            isSelected = false;
-
-
-
-
-        }
-        else if (GameManager.Instance.selectedUnit == null)
-        {
-            GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
-            isSelected = true;
-        }
-        else if (GameManager.Instance.selectedUnit != null)
-        {
-            if (isAtteckable)
-            {
-                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
-            }
+            case GameManager.GameState.LeftPlayerTurn:
+                if(owner == Owner.Humans)
+                {
+                    if (GameManager.Instance.selectedUnit == this)
+                    {
+                        GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
+                        isSelected = false;
+                    }
+                    else if (GameManager.Instance.selectedUnit == null)
+                    {
+                        GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                        isSelected = true;
+                    }
+                    else if (GameManager.Instance.selectedUnit != null && owner == Owner.Elfes)
+                    {
+                        if (isAtteckable)
+                        {
+                            TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                        }
+                    }
+                }
+                break;
+            case GameManager.GameState.RightPlayerTurn:
+                {
+                    if (owner == Owner.Elfes)
+                    {
+                        if (GameManager.Instance.selectedUnit == this)
+                        {
+                            GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
+                            isSelected = false;
+                        }
+                        else if (GameManager.Instance.selectedUnit == null)
+                        {
+                            GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                            isSelected = true;
+                        }
+                        else if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
+                        {
+                            if (isAtteckable)
+                            {
+                                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                            }
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -85,14 +106,9 @@ public class Unit : MonoBehaviour
                 transform.localScale += Vector3.one * 1.5f;
                 break;
         }
-        if (GameManager.Instance.gameState == GameManager.GameState.UnitChoosing)
-        {
-            // kod co ma się zadzaiać jak jednostka będzie wybrana (kliknięta) 
 
-        }
         if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
-            UIEventBroker.CallUnitSelected(this.gameObject);
             // miejsce do wywołania eventu gdy mamy wybrany unit w grze, i najeżdżamy na inny unit, żęby przekazać tego unitu statystyki do UI (np. OnMauseEntarOnEnemy)
         }
     }
@@ -159,7 +175,6 @@ public class Unit : MonoBehaviour
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                 Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
-
             }
             else
             {
@@ -187,7 +202,6 @@ public class Unit : MonoBehaviour
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking CouterDamage:" + (value - unitArmor));
                 Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
-
             }
             if (unitHealth <= 0)
             {
@@ -196,7 +210,7 @@ public class Unit : MonoBehaviour
             }
         }
     }
-
+    
     public void GetBonus(int attack, int armor, int speed, int attackRange)
     {
         unitAttack += attack;
