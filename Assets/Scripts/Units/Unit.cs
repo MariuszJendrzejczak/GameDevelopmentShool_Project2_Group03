@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public enum Owner {Humans, Elfes}
+    public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
 
@@ -15,12 +15,16 @@ public class Unit : MonoBehaviour
     private bool isSelected = false;
     [SerializeField]
     private int baseUnitSpeed, baseUnitHealth, baseUnitArmor, baseUnitAttack, baseUnitAttackRange;
-    private int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
+    public int unitSpeed, unitHealth, unitAttack, unitArmor, unitAttackRange;
     public bool canMove, canAtteck, canCounter, isAtteckable = false;
+
+
+
 
     private void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
+
     }
 
     private void Start()
@@ -36,7 +40,7 @@ public class Unit : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        switch(GameManager.Instance.gameState)
+        switch (GameManager.Instance.gameState)
         {
             case GameManager.GameState.UnitChoosing:
                 CMEventBroker.CallUnitChoosed(this.gameObject);
@@ -47,6 +51,10 @@ public class Unit : MonoBehaviour
         {
             GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
             isSelected = false;
+
+
+
+
         }
         else if (GameManager.Instance.selectedUnit == null)
         {
@@ -80,10 +88,11 @@ public class Unit : MonoBehaviour
         if (GameManager.Instance.gameState == GameManager.GameState.UnitChoosing)
         {
             // kod co ma się zadzaiać jak jednostka będzie wybrana (kliknięta) 
-          
+
         }
         if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
+            UIEventBroker.CallUnitSelected(this.gameObject);
             // miejsce do wywołania eventu gdy mamy wybrany unit w grze, i najeżdżamy na inny unit, żęby przekazać tego unitu statystyki do UI (np. OnMauseEntarOnEnemy)
         }
     }
@@ -150,6 +159,7 @@ public class Unit : MonoBehaviour
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                 Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+
             }
             else
             {
@@ -177,6 +187,7 @@ public class Unit : MonoBehaviour
                 unitHealth -= (value - unitArmor);
                 Debug.Log(this.name + " Taking CouterDamage:" + (value - unitArmor));
                 Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+
             }
             if (unitHealth <= 0)
             {
@@ -185,7 +196,7 @@ public class Unit : MonoBehaviour
             }
         }
     }
-    
+
     public void GetBonus(int attack, int armor, int speed, int attackRange)
     {
         unitAttack += attack;

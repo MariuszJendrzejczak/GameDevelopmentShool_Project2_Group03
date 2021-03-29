@@ -13,10 +13,10 @@ public class GameManager : MonoBehaviour
     {
         get { return instance; }
     }
-    
-    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame}
+
+    public enum GameState { MainManu, UnitChoosing, DeploymentLeft, DeploymentRight, LeftPlayerBeforeTurn, LeftPlayerTurn, RightPlayerBeforeTurn, RightPlayerTurn, EndGame }
     public GameState gameState;
-    public enum GameMode { DeveloperMode, NormalMode}
+    public enum GameMode { DeveloperMode, NormalMode }
     public GameMode gameMode;
     public Unit selectedUnit, attackedUnit;
     private int selectedUnitattack, selectedUnitArmor, selectedUnitSpeed, selectedUnitAttackRange, selectedUnitHealth;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
     [SerializeField]
     private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
-    
+
 
     private void Awake()
     {
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         CMEventBroker.ChangeGameState += EnterNewState;
         CMEventBroker.ChangeGameMode += GameModeChanged;
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
+
 
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
@@ -84,11 +85,13 @@ public class GameManager : MonoBehaviour
             case GameState.LeftPlayerBeforeTurn:
                 break;
             case GameState.LeftPlayerTurn:
+
                 // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
                 break;
             case GameState.RightPlayerBeforeTurn:
                 break;
             case GameState.RightPlayerTurn:
+
                 // 1 Analogicznie dla prawego gracza
                 break;
             case GameState.EndGame:
@@ -203,6 +206,7 @@ public class GameManager : MonoBehaviour
                 // 1. Resetowanie boolenów jednostek lewego gracza (tj. canAttack, canMove, canCounter), colddawny jeśli będą. Przygotowanie jednostek lewego gracza przed turą.
                 break;
             case GameState.LeftPlayerTurn:
+
                 break;
             case GameState.RightPlayerBeforeTurn:
                 // 1. Analogicznie dla prawego gracza
@@ -224,16 +228,17 @@ public class GameManager : MonoBehaviour
                 tile.GetComponent<Tile>().UnHighLightMe();
             }
         foreach (GameObject unit in unitsList)
-        { 
-            unit.GetComponent<Unit>().UnHighLightMe();  
+        {
+            unit.GetComponent<Unit>().UnHighLightMe();
         }
-        
-        UnitSelection(null, 0,0,0,0,0);
+
+        UnitSelection(null, 0, 0, 0, 0, 0);
     }
 
     public void CounterAttack()
     {
         selectedUnit.TakeCounterDamage(attackedUnitattack);
+        UIEventBroker.CallWasAttacked(this.gameObject);
         attackedUnit.canCounter = false;
         attackedUnit = null;
     }
@@ -246,11 +251,16 @@ public class GameManager : MonoBehaviour
         selectedUnitHealth = healt;
         selectedUnitSpeed = speed;
         selectedUnitAttackRange = attackRange;
+
+        UIEventBroker.CallUnitSelected(this.gameObject);
+
         // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
         // UICallUnitWasSelected(); - tutaj, 
         // deklaracja eventu i calla w UIEventBroker,
         // UIEventBroker.UnitWasSelected += Metoda która przekazuje wartości w UIManagerze. 
     }
+
+
 
     public void MoveUnit(Vector2 value)
     {
@@ -265,16 +275,19 @@ public class GameManager : MonoBehaviour
         attackedUnitHealth = healt;
         attackedUnitSpeed = speed;
         attackedUnitAttackRange = attackRange;
+
+        UIEventBroker.CallShakeCamera();
+        UIEventBroker.CallAtackedUnit(this.gameObject);
         // miejsce do wywałanie eventu do UI, przekazującego prametry zaatakowanego unitu do wyświetlanie (np. UnitAttacked)
     }
 
-    public void SetUpChoosedUnitLists( List<GameObject> humans, List<GameObject> elfes)
+    public void SetUpChoosedUnitLists(List<GameObject> humans, List<GameObject> elfes)
     {
-        foreach(GameObject unit in humans)
+        foreach (GameObject unit in humans)
         {
             humanPlayerUnitList.Add(unit);
         }
-        foreach(GameObject unit in elfes)
+        foreach (GameObject unit in elfes)
         {
             elfesPlayerUnitList.Add(unit);
         }
