@@ -10,8 +10,7 @@ public class Unit : MonoBehaviour
     public Owner owner;
     public enum Tag { Tag1, Tag2, Tag3, Tag4, Tag5, Tag6}
     public Tag myTag, weakOnTag;
-    [SerializeField]
-    private int tagBonus;
+    public int tagBonus;
     public float x, y;
     private SpriteRenderer renderer;
     [SerializeField]
@@ -203,7 +202,7 @@ public class Unit : MonoBehaviour
                 if (value + GameManager.Instance.selectedUnit.tagBonus > unitArmor)
                 {
                     unitHealth -= (value + GameManager.Instance.selectedUnit.tagBonus - unitArmor);
-                    Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
+                    Debug.Log(this.name + " Taking Damage:" + (value + GameManager.Instance.selectedUnit.tagBonus - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
                 }
             }
@@ -250,12 +249,23 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.attackedUnit.canCounter)
         {
-            if (value > unitArmor)
+            if (GameManager.Instance.attackedUnit.myTag == weakOnTag)
             {
-                unitHealth -= (value - unitArmor);
-                Debug.Log(this.name + " Taking CouterDamage:" + (value - unitArmor));
-                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                if (value + GameManager.Instance.attackedUnit.tagBonus > unitArmor)
+                {
+                    unitHealth -= (value + GameManager.Instance.attackedUnit.tagBonus - unitArmor);
+                    Debug.Log(this.name + " Taking CouterDamage:" + (value + GameManager.Instance.attackedUnit.tagBonus - unitArmor));
+                    Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                }
+                else
+                {
+                    unitHealth -= (value - unitArmor);
+                    Debug.Log(this.name + " Taking CouterDamage:" + (value - unitArmor));
+                    Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                }
             }
+            
+                
             if (unitHealth <= 0)
             {
                 Debug.Log(this.name + " is dead!");
