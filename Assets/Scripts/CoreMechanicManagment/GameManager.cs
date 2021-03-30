@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
     [SerializeField]
     private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
-    
+    [SerializeField]
+    private int humanScore, elfesScore;
     private void Awake()
     {
         instance = this;
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
         CMEventBroker.ChangeGameState += EnterNewState;
         CMEventBroker.ChangeGameMode += GameModeChanged;
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
+        CMEventBroker.UpdateElfesScore += UpdateElfesScore;
+        CMEventBroker.UpdateHumanScore += UpdateHumanScore;
 
         
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
@@ -323,5 +326,13 @@ public class GameManager : MonoBehaviour
         {
             elfesPlayerUnitList.Add(unit);
         }
+    }
+    private void UpdateHumanScore(int value)
+    {
+        humanScore += value;
+    }
+    private void UpdateElfesScore(int value)
+    {
+        elfesScore += value;
     }
 }

@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
     public Tag myTag, weakOnTag;
     [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
+    public GameObject grabedObject = null, guffinPlaceHolder = null;
     public float x, y;
     private SpriteRenderer renderer;
     [SerializeField]
@@ -238,6 +239,14 @@ public class Unit : MonoBehaviour
             {
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
+                if (owner == Owner.Humans)
+                {
+                    CMEventBroker.CallUpdateHumanScore(1);
+                }
+                else if (owner == Owner.Elfes)
+                {
+                    CMEventBroker.CallUpdateElfesScore(1);
+                }
             }
             if (GameManager.Instance.selectedUnit.passiveSkillPush == true)
             {
@@ -270,6 +279,10 @@ public class Unit : MonoBehaviour
             if (unitHealth <= 0)
             {
                 Debug.Log(this.name + " is dead!");
+                if (grabedObject)
+                {
+                    grabedObject.transform.
+                }
                 renderer.enabled = false;
             }
         }
@@ -289,6 +302,17 @@ public class Unit : MonoBehaviour
         canCounter = true;
         canMove = true;
         sanctuary = false;
+        if (grabedObject != null)
+        {
+            if (owner == Owner.Elfes)
+            {
+                CMEventBroker.CallUpdateElfesScore(1);
+            }
+            else if (owner == Owner.Humans)
+            {
+                CMEventBroker.CallUpdateHumanScore(1);
+            }
+        }
     }
 
     public void TakePush(Unit unit)
@@ -312,6 +336,10 @@ public class Unit : MonoBehaviour
         {
             transform.position += new Vector3(0, -1, 0);
         }
+    }
+    public void GrabMacGuffin(GameObject guffin)
+    {
+        grabedObject = guffin;
     }
 
     IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)

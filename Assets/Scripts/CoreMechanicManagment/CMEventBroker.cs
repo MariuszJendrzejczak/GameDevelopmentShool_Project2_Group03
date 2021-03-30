@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class CMEventBroker
@@ -53,6 +54,22 @@ public class CMEventBroker
         if (SwapUnitsPeak != null)
         {
             SwapUnitsPeak(unit);
+        }
+    }
+    public static event Action<int> UpdateHumanScore;
+    public static void CallUpdateHumanScore(int value)
+    {
+        if (UpdateHumanScore != null)
+        {
+            UpdateHumanScore(value);
+        }
+    }
+    public static event Action<int> UpdateElfesScore;
+    public static void CallUpdateElfesScore(int value)
+    {
+        if (UpdateElfesScore != null)
+        {
+            UpdateElfesScore(value);
         }
     }
 }
