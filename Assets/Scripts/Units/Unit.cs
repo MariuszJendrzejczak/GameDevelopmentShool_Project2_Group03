@@ -279,10 +279,7 @@ public class Unit : MonoBehaviour
             if (unitHealth <= 0)
             {
                 Debug.Log(this.name + " is dead!");
-                if (grabedObject)
-                {
-                    grabedObject.transform.
-                }
+              
                 renderer.enabled = false;
             }
         }
