@@ -2976,7 +2976,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &223113784
 RectTransform:
@@ -10794,6 +10794,8 @@ MonoBehaviour:
   unitsList: []
   humanPlayerUnitList: []
   elfesPlayerUnitList: []
+  humanScore: 0
+  elfesScore: 0
 --- !u!4 &623538993
 Transform:
   m_ObjectHideFlags: 0
