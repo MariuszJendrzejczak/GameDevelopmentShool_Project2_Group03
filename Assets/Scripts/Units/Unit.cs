@@ -8,8 +8,9 @@ public class Unit : MonoBehaviour
     public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
-    public enum Tag { Tag1, Tag2, Tag3, Tag4, Tag5, Tag6}
+    public enum Tag { Fast, Mage, Ranger, Heavy, Warrior, Divine}
     public Tag myTag, weakOnTag;
+    [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
     public float x, y;
     private SpriteRenderer renderer;
