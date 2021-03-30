@@ -286,19 +286,19 @@ public class Unit : MonoBehaviour
         Debug.Log(realativeX + " " + relativeY);
         if (realativeX > 0)
         {
-            transform.position += new Vector3(-1,0,0);
+            transform.position += new Vector3(1,0,0);
         }
         else if (realativeX < 0)
         {
-            transform.position += new Vector3(1, 0, 0);
+            transform.position += new Vector3(-1, 0, 0);
         }
         if (relativeY > 0)
         {
-            transform.position += new Vector3(0, -1, 0);
+            transform.position += new Vector3(0, 1, 0);
         }
         else if (relativeY < 0)
         {
-            transform.position += new Vector3(0, 1, 0);
+            transform.position += new Vector3(0, -1, 0);
         }
     }
 
