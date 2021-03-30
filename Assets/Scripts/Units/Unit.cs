@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     public Owner owner;
     public enum Tag { Tag1, Tag2, Tag3, Tag4, Tag5, Tag6}
     public Tag myTag, weakOnTag;
+    [SerializeField]
     private int tagBonus;
     public float x, y;
     private SpriteRenderer renderer;
