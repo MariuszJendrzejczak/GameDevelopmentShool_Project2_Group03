@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     
-
     private void Awake()
     {
         instance = this;

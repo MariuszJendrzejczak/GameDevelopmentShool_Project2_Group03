@@ -8,6 +8,9 @@ public class Unit : MonoBehaviour
     public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
+    public enum Tag { Tag1, Tag2, Tag3, Tag4, Tag5, Tag6}
+    public Tag myTag, weakOnTag;
+    private int tagBonus;
     public float x, y;
     private SpriteRenderer renderer;
     [SerializeField]
@@ -49,7 +52,7 @@ public class Unit : MonoBehaviour
                 Debug.Log(this.name + "został wysłany (UnitScript)");
                 break;
             case GameManager.GameState.LeftPlayerTurn:
-                if(owner == Owner.Humans)
+                if (owner == Owner.Humans)
                 {
                     if (GameManager.Instance.selectedUnit == this)
                     {
@@ -61,7 +64,8 @@ public class Unit : MonoBehaviour
                         GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                         isSelected = true;
                     }
-                    else if (GameManager.Instance.selectedUnit != null )//&& owner == Owner.Elfes)
+                }
+                if (GameManager.Instance.selectedUnit != null && owner == Owner.Elfes)
                     {
                         if (isAtteckable)
                         {
@@ -73,14 +77,10 @@ public class Unit : MonoBehaviour
                             else
                             {
                                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
-                                if (GameManager.Instance.selectedUnit.passiveSkillPush)
-                                {
-                                    TakePush(GameManager.Instance.selectedUnit);
-                                }
                             }
                         }
                     }
-                }
+                
                 break;
             case GameManager.GameState.RightPlayerTurn:
                 {
@@ -96,9 +96,9 @@ public class Unit : MonoBehaviour
                             GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                             isSelected = true;
                         }
-                        else if (GameManager.Instance.selectedUnit != null) //&& owner == Owner.Humans)
+                    }
+                    if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
                         {
-                            Debug.Log("jestem tu");
                             if (sanctuary)
                             {
                                 // informacja o sanktuarium
@@ -109,7 +109,7 @@ public class Unit : MonoBehaviour
                                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
                             }
                         }
-                    }
+                    
                 }
                 break;
             case GameManager.GameState.SkillSwapUnits:
@@ -197,25 +197,50 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.selectedUnit.canAtteck)
         {
-            if (value > unitArmor)
+            if (GameManager.Instance.selectedUnit.myTag == weakOnTag)
             {
-                unitHealth -= (value - unitArmor);
-                Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
-                Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                if (value + GameManager.Instance.selectedUnit.tagBonus > unitArmor)
+                {
+                    unitHealth -= (value + GameManager.Instance.selectedUnit.tagBonus - unitArmor);
+                    Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
+                    Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                }
             }
             else
             {
-                Debug.Log("to weak attack for unit armor");
+                if (value > unitArmor)
+                {
+                    unitHealth -= (value - unitArmor);
+                    Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
+                    Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+                }
+                else
+                {
+                    Debug.Log("to weak attack for unit armor");
+                }
             }
+            
             if (unitHealth > 0)
             {
-                GameManager.Instance.GrabHaldeToAttacked(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
-                GameManager.Instance.CounterAttack();
+                if (GameManager.Instance.selectedUnit.passiveSkillPush == false)
+                {
+                    GameManager.Instance.GrabHaldeToAttacked(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                    GameManager.Instance.CounterAttack();
+                }
+                else
+                {
+                    GameManager.Instance.GrabHaldeToAttacked(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                }
+                
             }
             else
             {
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
+            }
+            if (GameManager.Instance.selectedUnit.passiveSkillPush == true)
+            {
+                TakePush(GameManager.Instance.selectedUnit);
             }
             GameManager.Instance.AfterAttack();
         }
@@ -258,6 +283,7 @@ public class Unit : MonoBehaviour
     {
         float realativeX = x - unit.x;
         float relativeY = y - unit.y;
+        Debug.Log(realativeX + " " + relativeY);
         if (realativeX > 0)
         {
             transform.position += new Vector3(-1,0,0);
