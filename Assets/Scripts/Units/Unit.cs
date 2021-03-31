@@ -8,8 +8,8 @@ public class Unit : MonoBehaviour
     public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
-    public enum Tag { Fast, Mage, Ranger, Heavy, Warrior, Divine}
-    public Tag myTag, weakOnTag;
+    public enum Tag { none, Fast, Mage, Ranger, Heavy, Warrior, Divine}
+    public Tag myTag, weakOnTag, weakOnTag2, weakOnTag3;
     [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
     public GameObject grabedObject = null;
@@ -199,7 +199,7 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.selectedUnit.canAtteck)
         {
-            if (GameManager.Instance.selectedUnit.myTag == weakOnTag)
+            if (GameManager.Instance.selectedUnit.myTag == weakOnTag || GameManager.Instance.selectedUnit.myTag == weakOnTag2 || GameManager.Instance.selectedUnit.myTag == weakOnTag3)
             {
                 if (value + GameManager.Instance.selectedUnit.tagBonus > unitArmor)
                 {
@@ -263,7 +263,7 @@ public class Unit : MonoBehaviour
     {
         if (GameManager.Instance.attackedUnit.canCounter)
         {
-            if (GameManager.Instance.attackedUnit.myTag == weakOnTag)
+            if (GameManager.Instance.attackedUnit.myTag == weakOnTag || GameManager.Instance.attackedUnit.myTag == weakOnTag2 || GameManager.Instance.attackedUnit.myTag == weakOnTag3)
             {
                 if (value + GameManager.Instance.attackedUnit.tagBonus > unitArmor)
                 {
