@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4613066040563889875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35565048, y: 0.35565048, z: 0.35565048}
+  m_LocalScale: {x: 0.258562, y: 0.258562, z: 0.258562}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,11 +97,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 0
+  myTag: 6
+  weakOnTag: 3
+  weakOnTag2: 5
+  weakOnTag3: 0
+  tagBonus: 20
+  grabedObject: {fileID: 0}
+  x: 0
+  y: 0
   developmentModeSprite: {fileID: 21300000, guid: 21021518ef3defe47ac5bd76e3047380,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: ea8127e1c53048a4d9ad133f95c4615e, type: 3}
+  isSelected: 0
+  sanctuary: 0
+  passiveSkillPush: 0
   baseUnitSpeed: 3
-  baseUnitHealth: 100
+  baseUnitHealth: 108
   baseUnitArmor: 0
   baseUnitAttack: 35
   baseUnitAttackRange: 1
@@ -127,7 +138,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9695328, y: -0.61954784}
+  m_Offset: {x: -1.0984598, y: -0.82311916}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -138,7 +149,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8527106, y: 2.5360665}
+  m_Size: {x: 2.7348583, y: 3.0246387}
   m_EdgeRadius: 0
 --- !u!50 &4871171752285748891
 Rigidbody2D:

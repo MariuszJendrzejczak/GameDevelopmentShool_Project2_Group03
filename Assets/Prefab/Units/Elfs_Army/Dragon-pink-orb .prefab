@@ -97,11 +97,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 1
+  myTag: 6
+  weakOnTag: 3
+  weakOnTag2: 5
+  weakOnTag3: 0
+  tagBonus: 20
+  grabedObject: {fileID: 0}
+  x: 0
+  y: 0
   developmentModeSprite: {fileID: 21300000, guid: 21021518ef3defe47ac5bd76e3047380,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: 99b1042dece1875479cd34265468a333, type: 3}
+  isSelected: 0
+  sanctuary: 0
+  passiveSkillPush: 0
   baseUnitSpeed: 3
-  baseUnitHealth: 100
+  baseUnitHealth: 108
   baseUnitArmor: 0
   baseUnitAttack: 35
   baseUnitAttackRange: 1
