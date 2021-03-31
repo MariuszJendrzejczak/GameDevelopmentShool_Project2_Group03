@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
     public Tag myTag, weakOnTag;
     [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
-    public GameObject grabedObject = null, guffinPlaceHolder = null;
+    public GameObject grabedObject = null;
     public float x, y;
     private SpriteRenderer renderer;
     [SerializeField]
@@ -237,6 +237,10 @@ public class Unit : MonoBehaviour
             }
             else
             {
+                if (grabedObject)
+                {
+                    DropMacGuffin();
+                }
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
                 if (owner == Owner.Humans)
@@ -278,8 +282,11 @@ public class Unit : MonoBehaviour
                 
             if (unitHealth <= 0)
             {
+                if (grabedObject)
+                {
+                    DropMacGuffin();
+                }
                 Debug.Log(this.name + " is dead!");
-              
                 renderer.enabled = false;
             }
         }
@@ -316,7 +323,6 @@ public class Unit : MonoBehaviour
     {
         float realativeX = x - unit.x;
         float relativeY = y - unit.y;
-        Debug.Log(realativeX + " " + relativeY);
         if (realativeX > 0)
         {
             transform.position += new Vector3(1,0,0);
@@ -336,7 +342,15 @@ public class Unit : MonoBehaviour
     }
     public void GrabMacGuffin(GameObject guffin)
     {
+        Debug.Log("guffin pickuped");
         grabedObject = guffin;
+        guffin.SetActive(false);
+    }
+    private void DropMacGuffin()
+    {
+        Debug.Log("guffin droped");
+        grabedObject.transform.position = new Vector2(x, y);
+        grabedObject.SetActive(true);
     }
 
     IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)
