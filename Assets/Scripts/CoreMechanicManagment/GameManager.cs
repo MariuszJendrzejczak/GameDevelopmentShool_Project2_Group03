@@ -350,10 +350,9 @@ public class GameManager : MonoBehaviour
         // UIEventBroker.UnitWasSelected += Metoda która przekazuje wartości w UIManagerze. 
     }
 
-    public void MoveUnit(PathNode node)
+    public void MoveUnit(Vector2 value)
     {
-        pathfinding.FindAPath(startNode, node);
-        selectedUnit.StartMovement(pathfinding.pathNodeList, moveStep);
+        selectedUnit.StartMovement(value, moveStep);
     }
 
     public void GrabHaldeToAttacked(Unit attacked, int attack, int armor, int healt, int speed, int attackRange)

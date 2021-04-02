@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
-    public enum Tag { none, Fast, Mage, Ranger, Heavy, Warrior, Divine}
+    public enum Tag { none, Fast, Mage, Ranger, Heavy, Warrior, Divine }
     public Tag myTag, weakOnTag, weakOnTag2, weakOnTag3;
     [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        switch(GameManager.Instance.gameState)
+        switch (GameManager.Instance.gameState)
         {
             case GameManager.GameState.UnitChoosing:
                 CMEventBroker.CallUnitChoosed(this.gameObject);
@@ -83,21 +83,21 @@ public class Unit : MonoBehaviour
                     }
                 }
                 if (GameManager.Instance.selectedUnit != null && owner == Owner.Elfes)
+                {
+                    if (isAtteckable)
                     {
-                        if (isAtteckable)
+                        if (sanctuary)
                         {
-                            if (sanctuary)
-                            {
-                                // informacja o sanktuarium
-                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
-                            }
-                            else
-                            {
-                                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
-                            }
+                            // informacja o sanktuarium
+                            Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                        }
+                        else
+                        {
+                            TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
                         }
                     }
-                
+                }
+
                 break;
             case GameManager.GameState.RightPlayerTurn:
                 {
@@ -116,17 +116,17 @@ public class Unit : MonoBehaviour
                         }
                     }
                     if (GameManager.Instance.selectedUnit != null && owner == Owner.Humans)
+                    {
+                        if (sanctuary)
                         {
-                            if (sanctuary)
-                            {
-                                // informacja o sanktuarium
-                                Debug.Log("Ten Unit ma na sobie czar sanctuarium");
-                            }
-                            else
-                            {
-                                TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
-                            }
-                        }                   
+                            // informacja o sanktuarium
+                            Debug.Log("Ten Unit ma na sobie czar sanctuarium");
+                        }
+                        else
+                        {
+                            TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
+                        }
+                    }
                 }
                 break;
             case GameManager.GameState.SkillSwapUnits:
@@ -201,9 +201,9 @@ public class Unit : MonoBehaviour
         unitAttackRange = baseUnitAttackRange;
     }
 
-    public void StartMovement(List<PathNode> pathList, float moveStep)
+    public void StartMovement(Vector2 value, float moveStep)
     {
-        StartCoroutine(UnitMovement(pathList, moveStep));
+        StartCoroutine(UnitMovement(value, moveStep));
         canMove = false;
     }
 
@@ -238,11 +238,11 @@ public class Unit : MonoBehaviour
                     Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
 
-                    if(GameManager.Instance.selectedUnit.owner == Owner.Elfes)
+                    if (GameManager.Instance.selectedUnit.owner == Owner.Elfes)
                     {
                         UIEventBroker.CallUIElfesScore(value);
                     }
-                    else if(GameManager.Instance.selectedUnit.owner == Owner.Humans)
+                    else if (GameManager.Instance.selectedUnit.owner == Owner.Humans)
                     {
                         UIEventBroker.CallUIHumanScore(value);
                     }
@@ -252,7 +252,7 @@ public class Unit : MonoBehaviour
                     Debug.Log("to weak attack for unit armor");
                 }
             }
-            
+
             if (unitHealth > 0)
             {
                 if (GameManager.Instance.selectedUnit.passiveSkillPush == false)
@@ -264,7 +264,7 @@ public class Unit : MonoBehaviour
                 {
                     GameManager.Instance.GrabHaldeToAttacked(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
                 }
-                
+
             }
             else
             {
@@ -311,8 +311,8 @@ public class Unit : MonoBehaviour
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
                 }
             }
-            
-                
+
+
             if (unitHealth <= 0)
             {
                 if (grabedObject)
@@ -324,7 +324,7 @@ public class Unit : MonoBehaviour
             }
         }
     }
-    
+
     public void GetBonus(int attack, int armor, int speed, int attackRange)
     {
         unitAttack += attack;
@@ -358,7 +358,7 @@ public class Unit : MonoBehaviour
         float relativeY = y - unit.y;
         if (realativeX > 0)
         {
-            transform.position += new Vector3(1,0,0);
+            transform.position += new Vector3(1, 0, 0);
         }
         else if (realativeX < 0)
         {
@@ -386,23 +386,12 @@ public class Unit : MonoBehaviour
         grabedObject.SetActive(true);
     }
 
-    IEnumerator UnitMovement(List<PathNode> pathList, float moveStep)
+    IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)
     {
-        int count1 = 0;
-        int count2 = 0;
-        foreach (PathNode node in pathList)
+        while (transform.position.x != tilePosition.x || transform.position.y != tilePosition.y)
         {
-            count1++;
-            if (count1 >= 100)
-                break;
-            while (transform.position.x != node.x || transform.position.y != node.y)
-            {
-                count2++;
-                if (count2 >= 1000)
-                    break;
-                transform.position = Vector2.MoveTowards(transform.position, node.transform.position, moveStep * Time.deltaTime);
-                yield return null;
-            }
+            transform.position = Vector2.MoveTowards(transform.position, tilePosition, moveStep * Time.deltaTime);
+            yield return null;
         }
     }
 }
