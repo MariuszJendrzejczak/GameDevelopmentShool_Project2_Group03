@@ -133,13 +133,13 @@ public class Unit : MonoBehaviour
                     case Owner.Elfes:
                         break;
                 }
-                transform.localScale += Vector3.one * 1.5f;
+                transform.localScale += Vector3.one * 0.00000001f;
                 break;
         }
 
         if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
-            // miejsce do wywołania eventu gdy mamy wybrany unit w grze, i najeżdżamy na inny unit, żęby przekazać tego unitu statystyki do UI (np. OnMauseEntarOnEnemy)
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -149,7 +149,7 @@ public class Unit : MonoBehaviour
         switch (GameManager.Instance.gameState)
         {
             case GameManager.GameState.UnitChoosing:
-                transform.localScale -= Vector3.one * 1.5f;
+                transform.localScale -= Vector3.one * 0.0000001f;
                 break;
         }
     }

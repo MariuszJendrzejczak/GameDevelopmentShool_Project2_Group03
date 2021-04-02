@@ -19,13 +19,13 @@ public class UnitChoosing : MonoBehaviour
         {
             Instantiate(humanPlayerUnitList[i], humanPlayerTransformList[i].position, Quaternion.identity);
             Debug.Log(i);
+            
         }
         for (int i = 0; i < elfesPlayerUnitList.Count; i++)
         {
             Instantiate(elfesPlayerUnitList[i], elfesPlayerTransforList[i].position, Quaternion.identity);
         }
     }
-
     public void UnitChosed(GameObject unit)
     {
         if(unit.GetComponent<Unit>().owner == Unit.Owner.Humans)
@@ -35,6 +35,18 @@ public class UnitChoosing : MonoBehaviour
             UIEventBroker.CallShowHumanUnitsChoosed(unit);
             Debug.Log(unit.name + "został dodany do armii Ludzi (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
             unit.SetActive(false);
+
+            for (int i = 2; i < choosedHumanPlayerUnitList.Count; i++ )
+            {
+                foreach (GameObject obj in choosedHumanPlayerUnitList)
+                {
+                    if (obj.activeSelf == false)
+                    {
+                        obj.SetActive(true);
+                    }
+                }
+            }
+            unit.SetActive(false);
         }
         if (unit.GetComponent<Unit>().owner == Unit.Owner.Elfes)
         {
@@ -43,8 +55,18 @@ public class UnitChoosing : MonoBehaviour
             UIEventBroker.CallShowElfesUnitsChoosed(unit);
             Debug.Log(unit.name + "został dodany do armii Elfów (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
             unit.SetActive(false);
+            for (int i = 2; i < choosedElfesPlayerUnitList.Count; i++)
+            {
+                foreach (GameObject obj in choosedElfesPlayerUnitList)
+                {
+                    if (obj.activeSelf == false)
+                    {
+                        obj.SetActive(true); 
+                    }
+                }
+            }
+            unit.SetActive(false);
         }
-        //tutaj może zostac scallowany event, który bedzie przekazywał listy wybranych jednostek do UIManagera, który będzie mógł tę liste w jakiś sposób wyświetlić.
     }
 
     public void SendFinalUnitListsToGameManager()

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b8c146fabe4664299be76bbfb9db4c, type: 3}
   m_Name: HumanChose
   m_EditorClassIdentifier: 
-  storyText: whgisderhgolsiekdgjoisd
+  storyText: 'Human must choose 3 units '
   nextStates:
   - {fileID: 11400000, guid: db0c144605359284193ebf41917a0172, type: 2}

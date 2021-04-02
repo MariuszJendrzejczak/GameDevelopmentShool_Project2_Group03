@@ -49,7 +49,6 @@ public class UnitChosedUI : MonoBehaviour
             for (int i = 0; i < choosedHumanUnitList.Count; i++)
             {
                 firstHumanSprite.GetComponent<Image>().sprite = choosedHumanUnitList[0].GetComponent<SpriteRenderer>().sprite;
-              /*  firstHumanSprite.transform.localScale += new Vector3(25f, 25f, 1f);*/
             }
             for (int i = 1; i < choosedHumanUnitList.Count; i++)
             {
@@ -103,9 +102,10 @@ public class UnitChosedUI : MonoBehaviour
             for (int i = 5; i < choosedElfUnitList.Count; i++)
             {
                 sixthElfSprite.GetComponent<Image>().sprite = choosedElfUnitList[5].GetComponent<SpriteRenderer>().sprite;
-            }
+            } 
         }
     }
+
 
     public void SaundOffBtn()
     {

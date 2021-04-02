@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b8c146fabe4664299be76bbfb9db4c, type: 3}
   m_Name: ElfForHuman
   m_EditorClassIdentifier: 
-  storyText: sfdsdfsdf
+  storyText: 'Elf must choosed 3 Units for Human '
   nextStates:
   - {fileID: 11400000, guid: 350bc05191961ca4e8682b13a624e4da, type: 2}
