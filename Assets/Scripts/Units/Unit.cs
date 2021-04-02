@@ -137,11 +137,10 @@ public class Unit : MonoBehaviour
                 transform.localScale += Vector3.one * 0.00000001f;
                 break;
         }
-
-        if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+        if(GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
+        }  
     }
 
     private void OnMouseExit()
@@ -151,6 +150,11 @@ public class Unit : MonoBehaviour
             case GameManager.GameState.UnitChoosing:
                 transform.localScale -= Vector3.one * 0.0000001f;
                 break;
+        }
+        if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+        {
+
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -224,15 +228,6 @@ public class Unit : MonoBehaviour
                     unitHealth -= (value - unitArmor);
                     Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
-
-                    if(GameManager.Instance.selectedUnit.owner == Owner.Elfes)
-                    {
-                        UIEventBroker.CallUIElfesScore(value);
-                    }
-                    else if(GameManager.Instance.selectedUnit.owner == Owner.Humans)
-                    {
-                        UIEventBroker.CallUIHumanScore(value);
-                    }
                 }
                 else
                 {
@@ -264,12 +259,15 @@ public class Unit : MonoBehaviour
                 if (owner == Owner.Humans)
                 {
                     CMEventBroker.CallUpdateHumanScore(1);
-                    UIEventBroker.CallUIHumanScore(1);
+                    UIEventBroker.CallUIHumanScore(value);
+
+
                 }
                 else if (owner == Owner.Elfes)
                 {
                     CMEventBroker.CallUpdateElfesScore(1);
-                    UIEventBroker.CallUIElfesScore(1);
+                    UIEventBroker.CallUIElfesScore(value);
+
                 }
             }
             if (GameManager.Instance.selectedUnit.passiveSkillPush == true)
@@ -298,14 +296,23 @@ public class Unit : MonoBehaviour
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
                 }
             }
-            
-                
+
+
             if (unitHealth <= 0)
             {
                 if (grabedObject)
                 {
                     DropMacGuffin();
                 }
+                else if(owner == Owner.Elfes)
+                { 
+                UIEventBroker.CallUIElfesScore(1);
+                }
+                else if (owner == Owner.Humans)
+                {
+                    UIEventBroker.CallUIHumanScore(1);
+                }
+
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
             }
