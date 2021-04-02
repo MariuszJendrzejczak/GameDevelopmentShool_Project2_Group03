@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using UnityEditor.PackageManager.Requests;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
