@@ -151,10 +151,10 @@ public class Unit : MonoBehaviour
                 break;
         }
 
-        if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+        /*if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
         {
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
+        }*/
     }
 
     private void OnMouseExit()

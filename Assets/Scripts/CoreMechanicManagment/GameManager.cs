@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        /*if (tilesContaainter == null)
+        {
+            tilesContaainter = GameObject.Find("TilesContainer");
+        }*/
         StateUpdateCall();
         if (gameState == GameState.LeftPlayerTurn || gameState == GameState.RightPlayerTurn)
         {
@@ -66,52 +70,61 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
             CMEventBroker.CallChangeGameState();
     }
+    public void EndofTurn()
+    {
+        if (gameState == GameState.LeftPlayerTurn)
+        {
+            gameState = GameState.RightPlayerBeforeTurn;
+            CMEventBroker.CallChangeGameState();
+            gameState = GameState.RightPlayerTurn;
+            CMEventBroker.CallChangeGameState();
+        }
+        else if (gameState == GameState.RightPlayerTurn)
+        {
+            gameState = GameState.LeftPlayerBeforeTurn;
+            CMEventBroker.CallChangeGameState();
+            gameState = GameState.LeftPlayerTurn;
+            CMEventBroker.CallChangeGameState();
+        }
+    }
+
+    public void EndofDeployment()
+    {
+        if (gameState == GameState.DeploymentLeft)
+        {
+            gameState = GameState.DeploymentRight;
+            CMEventBroker.CallChangeGameState();
+        }
+        else if (gameState == GameState.DeploymentRight)
+        {
+            gameState = GameState.LeftPlayerBeforeTurn;
+            CMEventBroker.CallChangeGameState();
+            gameState = GameState.LeftPlayerTurn;
+            CMEventBroker.CallChangeGameState();
+        }
+    }
 
     public void EnterNewState()
     {
         switch (gameState)
         {
             case GameState.MainManu:
-                // 1. Reset/SetUp/zerowanie ustawień na początek gry. 
                 break;
             case GameState.UnitChoosing:
-                // 1. wyświetlenie sceny z wyborem jednostek.
-                // 2. wyświetlenie dostępnych jednostek (perp scena)
                 break;
             case GameState.DeploymentLeft:
-                //przygotowanie sceny po UnitChoosing
-                /*tilesContaainter = GameObject.Find("TilesContainer");
-                unitsContainer = GameObject.Find("UnitsContainer");
-                if(tilesContaainter != null)
-                {
-                    for (int i = 0; i < tilesContaainter.transform.childCount; i++)
-                    {
-                        tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
-                    }
-                }
-                else
-                {
-                    Debug.Log("TilesContainer is null");
-                }
-
-                for (int i = 0; i < unitsContainer.transform.childCount; i++)
-                {
-                    unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-                }*/
-
-                //podświetlenie startowych tilei
+                selectedUnit = null;
                 foreach (GameObject tile in tilesList)
                 {
                     Tile tileScript = tile.GetComponent<Tile>();
                     if (tileScript.isStartingTile == Tile.StartingTile.leftPlayerStartingTile)
                     {
                         tileScript.HighLightMe(Color.red);
-                        Debug.Log(tile.name);
                     }
-
                 }
                 break;
             case GameState.DeploymentRight:
+                selectedUnit = null;
                 foreach (GameObject tile in tilesList)
                 {
                     tile.GetComponent<Tile>().UnHighLightMe();
@@ -126,12 +139,36 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.LeftPlayerBeforeTurn:
-                // 1. Resetowanie boolenów jednostek lewego gracza (tj. canAttack, canMove, canCounter), colddawny jeśli będą. Przygotowanie jednostek lewego gracza przed turą.
+                selectedUnit = null;
+                foreach (GameObject tile in tilesList)
+                {
+                    tile.GetComponent<Tile>().UnHighLightMe();
+                }
+                foreach (GameObject obj in unitsList)
+                {
+                    Unit unit = obj.GetComponent<Unit>();
+                    if (unit.owner == Unit.Owner.Humans)
+                    {
+                        unit.NewTurnForUnit();
+                    }
+                }
                 break;
             case GameState.LeftPlayerTurn:
                 break;
             case GameState.RightPlayerBeforeTurn:
-                // 1. Analogicznie dla prawego gracza
+                selectedUnit = null;
+                foreach (GameObject tile in tilesList)
+                {
+                    tile.GetComponent<Tile>().UnHighLightMe();
+                }
+                foreach (GameObject obj in unitsList)
+                {
+                    Unit unit = obj.GetComponent<Unit>();
+                    if (unit.owner == Unit.Owner.Elfes)
+                    {
+                        unit.NewTurnForUnit();
+                    }
+                }
                 break;
             case GameState.RightPlayerTurn:
                 break;
@@ -378,5 +415,10 @@ public class GameManager : MonoBehaviour
     public void ClearNodeList()
     {
         pathfinding.ClearPathList();
+    }
+    
+    public void AssignTilesContainer (GameObject container)
+    {
+        tilesContaainter = container;
     }
 }

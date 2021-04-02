@@ -55,7 +55,11 @@ public class Tile : MonoBehaviour
             case GameManager.GameState.DeploymentRight:
                 if (isWalkAble)
                 {
-                    GameManager.Instance.selectedUnit.transform.position = this.transform.position;
+                    if(GameManager.Instance.selectedUnit != null)
+                    {
+                        GameManager.Instance.selectedUnit.transform.position = this.transform.position;
+                    }
+
                 }
                 break;
         }      
