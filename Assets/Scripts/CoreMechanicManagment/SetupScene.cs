@@ -11,14 +11,14 @@ public class SetupScene : MonoBehaviour
         pathfinding = GetComponent<Pathfinding>();
         GameManager.Instance.SetupScene();
         pathfinding.GetNodeList();
-        for (int i = 0; i < 6; i++)
+        /*for (int i = 0; i < 6; i++)
         {
             GameManager.Instance.humanPlayerUnitList[i].transform.position = new Vector2(0, i + 5);
         }
         for (int i = 0; i < 6; i++)
         {
             GameManager.Instance.elfesPlayerUnitList[i].transform.position = new Vector2(14, i + 5);
-        }
+        }*/
     }
 
 
