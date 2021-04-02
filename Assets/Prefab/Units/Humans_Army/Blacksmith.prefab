@@ -105,6 +105,7 @@ MonoBehaviour:
   grabedObject: {fileID: 0}
   x: 0
   y: 0
+  myCurrentNode: {fileID: 0}
   developmentModeSprite: {fileID: 21300000, guid: c412fe044dbe46d489c18f25303a4595,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: 4723d532aa3c6e344a8befeff9638a02, type: 3}
@@ -112,7 +113,7 @@ MonoBehaviour:
   sanctuary: 0
   passiveSkillPush: 0
   baseUnitSpeed: 3
-  baseUnitHealth: 185
+  baseUnitHealth: 165
   baseUnitArmor: 0
   baseUnitAttack: 10
   baseUnitAttackRange: 1

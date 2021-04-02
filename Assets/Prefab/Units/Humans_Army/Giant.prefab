@@ -106,6 +106,7 @@ MonoBehaviour:
   grabedObject: {fileID: 0}
   x: 0
   y: 0
+  myCurrentNode: {fileID: 0}
   developmentModeSprite: {fileID: 21300000, guid: b40da8d4b630abf4cafccc5d4c4408ad,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: ea8127e1c53048a4d9ad133f95c4615e, type: 3}
@@ -113,7 +114,7 @@ MonoBehaviour:
   sanctuary: 0
   passiveSkillPush: 0
   baseUnitSpeed: 3
-  baseUnitHealth: 104
+  baseUnitHealth: 94
   baseUnitArmor: 0
   baseUnitAttack: 32
   baseUnitAttackRange: 1
@@ -139,7 +140,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0984598, y: -0.82311916}
+  m_Offset: {x: -1.0901421, y: -0.6484337}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -150,7 +151,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7348583, y: 3.0246387}
+  m_Size: {x: 3.2838223, y: 3.3740096}
   m_EdgeRadius: 0
 --- !u!50 &4871171752285748891
 Rigidbody2D:
