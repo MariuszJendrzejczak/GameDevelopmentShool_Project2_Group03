@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1323107554209656443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.26909, y: 0.26909, z: 0.26909}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323107554209656443}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff8bdb4ab4dcac248b2643c3b1b00788, type: 3}
   m_Name: 
@@ -85,7 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ff711635dfb2445aeef098eaea42e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverAmount: 0.1
+  cursorArrow: {fileID: 0}
+  cursorChange: {fileID: 0}
 --- !u!212 &6295302646872992321
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,11 +123,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1602838035
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7223950226953391895, guid: 77fdf39b0421ee84eb66355656bfb26b,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 477418a29fe08834fb0426b2f7e1edfb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,18 +150,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.24740863, y: 0.10035062}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9895833, y: 0.9053177}
+    oldSize: {x: 6, y: 6}
     newSize: {x: 2.96875, y: 2.715953}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9895833, y: 0.9053177}
+  m_Size: {x: 2.9194598, y: 2.3917165}
   m_EdgeRadius: 0
 --- !u!114 &4818948623607262862
 MonoBehaviour:
@@ -177,5 +177,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackBonus: 0
   attackRangeBonus: 0
-  speedBonus: 0
+  speedBonus: 1
   armorBonus: 0
