@@ -5,12 +5,38 @@ using UnityEngine;
 public class SetupScene : MonoBehaviour
 {
     private Pathfinding pathfinding;
-    // Start is called before the first frame update
+    [SerializeField]
+    private GameObject tilesContainer, unitContainer;
+
+    private void Awake()
+    {
+        if (tilesContainer == null)
+        {
+            tilesContainer = GameObject.Find("TilesContainer");
+        }
+    }
+
     void Start()
     {
-        pathfinding = GetComponent<Pathfinding>();
+        GameManager.Instance.AssignTilesContainer(tilesContainer);
+        pathfinding = GameManager.Instance.GetComponent<Pathfinding>();
         GameManager.Instance.SetupScene();
         pathfinding.GetNodeList();
+
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject unit = GameManager.Instance.humanPlayerUnitList[i];
+            unit.transform.position = new Vector2(0, i + 5);
+            unit.SetActive(true);
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject unit = GameManager.Instance.elfesPlayerUnitList[i];
+            unit.transform.position = new Vector2(13, i + 5);
+            unit.SetActive(true);
+        }
+        GameManager.Instance.gameState = GameManager.GameState.DeploymentLeft;
+        CMEventBroker.CallChangeGameState();
     }
 
 

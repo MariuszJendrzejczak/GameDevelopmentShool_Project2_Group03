@@ -37,15 +37,32 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isWalkAble)
+        switch (GameManager.Instance.gameState)
         {
-            GameManager.Instance.MoveUnit(this.GetComponent<PathNode>());
-            GameManager.Instance.UnitSelection(null,0,0,0,0,0, null);
-        }
-        else
-        {
-            Debug.Log("Out of range");
-        }
+            case GameManager.GameState.LeftPlayerTurn:
+            case GameManager.GameState.RightPlayerTurn:
+                if (isWalkAble)
+                {
+                    GameManager.Instance.MoveUnit(this.transform.position);
+                    GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0, null);
+                }
+                else
+                {
+                    Debug.Log("Out of range");
+                }
+                break;
+            case GameManager.GameState.DeploymentLeft:
+            case GameManager.GameState.DeploymentRight:
+                if (isWalkAble)
+                {
+                    if(GameManager.Instance.selectedUnit != null)
+                    {
+                        GameManager.Instance.selectedUnit.transform.position = this.transform.position;
+                    }
+
+                }
+                break;
+        }      
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

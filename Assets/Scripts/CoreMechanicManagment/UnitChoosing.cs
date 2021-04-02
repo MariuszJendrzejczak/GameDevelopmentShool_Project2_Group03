@@ -10,10 +10,21 @@ public class UnitChoosing : MonoBehaviour
     private List<Transform> humanPlayerTransformList, elfesPlayerTransforList;
     [SerializeField]
     private List<GameObject> choosedHumanPlayerUnitList, choosedElfesPlayerUnitList;
+    [SerializeField]
+    private GameObject unitsContainer;
 
+    private void Awake()
+    {
+
+        if (unitsContainer == null)
+        {
+            unitsContainer = GameObject.Find("UnitsContainer");
+        }
+    }
     private void Start()
     {
         CMEventBroker.UnitChoosed += UnitChosed;
+        CMEventBroker.UnitChoosed += AddUnitToContainer;
         // poniższy kod wykonuje instancje jednostek do wyboru w zadanych pozycjach transform. Z założenia wykonywane na poczatku sceny ChoosingUnits.
         for (int i = 0; i < humanPlayerUnitList.Count; i++)
         {
@@ -69,8 +80,14 @@ public class UnitChoosing : MonoBehaviour
         }
     }
 
+    public void AddUnitToContainer(GameObject unit)
+    {
+        unit.transform.SetParent(unitsContainer.transform);
+    }
+
     public void SendFinalUnitListsToGameManager()
     {
+        GameManager.Instance.unitsContainer = unitsContainer;
         CMEventBroker.CallAllUnitsChoosed(choosedHumanPlayerUnitList, choosedElfesPlayerUnitList);
     }
     private void Update()
