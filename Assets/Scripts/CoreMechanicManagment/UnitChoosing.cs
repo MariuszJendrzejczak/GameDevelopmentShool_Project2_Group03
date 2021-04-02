@@ -31,12 +31,16 @@ public class UnitChoosing : MonoBehaviour
         if(unit.GetComponent<Unit>().owner == Unit.Owner.Humans)
         {
             choosedHumanPlayerUnitList.Add(unit);
+            UIEventBroker.CallHumanChosedUnitPanel();
+            UIEventBroker.CallShowHumanUnitsChoosed(unit);
             Debug.Log(unit.name + "został dodany do armii Ludzi (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
             unit.SetActive(false);
         }
         if (unit.GetComponent<Unit>().owner == Unit.Owner.Elfes)
         {
             choosedElfesPlayerUnitList.Add(unit);
+            UIEventBroker.CallElfChosedUnitPanel();
+            UIEventBroker.CallShowElfesUnitsChoosed(unit);
             Debug.Log(unit.name + "został dodany do armii Elfów (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
             unit.SetActive(false);
         }

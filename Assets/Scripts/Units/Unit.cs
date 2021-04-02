@@ -215,6 +215,15 @@ public class Unit : MonoBehaviour
                     unitHealth -= (value - unitArmor);
                     Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
+
+                    if(GameManager.Instance.selectedUnit.owner == Owner.Elfes)
+                    {
+                        UIEventBroker.CallUIElfesScore(value);
+                    }
+                    else if(GameManager.Instance.selectedUnit.owner == Owner.Humans)
+                    {
+                        UIEventBroker.CallUIHumanScore(value);
+                    }
                 }
                 else
                 {
@@ -246,10 +255,12 @@ public class Unit : MonoBehaviour
                 if (owner == Owner.Humans)
                 {
                     CMEventBroker.CallUpdateHumanScore(1);
+                    UIEventBroker.CallUIHumanScore(1);
                 }
                 else if (owner == Owner.Elfes)
                 {
                     CMEventBroker.CallUpdateElfesScore(1);
+                    UIEventBroker.CallUIElfesScore(1);
                 }
             }
             if (GameManager.Instance.selectedUnit.passiveSkillPush == true)

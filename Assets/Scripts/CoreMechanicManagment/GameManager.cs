@@ -150,11 +150,13 @@ public class GameManager : MonoBehaviour
             case GameState.LeftPlayerBeforeTurn:
                 break;
             case GameState.LeftPlayerTurn:
+                UIEventBroker.CallHumanMove();
                 // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
                 break;
             case GameState.RightPlayerBeforeTurn:
                 break;
             case GameState.RightPlayerTurn:
+                UIEventBroker.CallElfesMove();
                 // 1 Analogicznie dla prawego gracza
                 break;
             case GameState.EndGame:
@@ -258,9 +260,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-  
-
     public void AfterAttack()
     {
         selectedUnit.canAtteck = false;
@@ -293,7 +292,7 @@ public class GameManager : MonoBehaviour
         selectedUnitSpeed = speed;
         selectedUnitAttackRange = attackRange;
 
-        UIEventBroker.CallUnitSelected(this.gameObject);
+        UIEventBroker.CallUnitSelected();
         // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
         // UICallUnitWasSelected(); - tutaj, 
         // deklaracja eventu i calla w UIEventBroker,
@@ -313,6 +312,7 @@ public class GameManager : MonoBehaviour
         attackedUnitHealth = healt;
         attackedUnitSpeed = speed;
         attackedUnitAttackRange = attackRange;
+        UIEventBroker.CallAtackedUnit();
         // miejsce do wywałanie eventu do UI, przekazującego prametry zaatakowanego unitu do wyświetlanie (np. UnitAttacked)
     }
 

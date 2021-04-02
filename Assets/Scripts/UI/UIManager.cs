@@ -11,19 +11,76 @@ public class UIManager : MonoBehaviour
     {
         get { return instance; }
     }
+
+    [Header("Player Move")]
+    private Color basicColor = Color.white;
     [SerializeField]
-    private TextMeshProUGUI leftPlayerTurn, rightPlayerTurn;
+    private Color turnColor = new Color(0.7735f, 0.2138951f, 0.2079922f, 1f);
+    [SerializeField]
+    private Image turnHuman, turnElfes;
+
+    [SerializeField]
+    TextMeshProUGUI humanScoreText, elfesScoreText;
+
+    [SerializeField]
+    GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn;
 
 
-    public void LeftPlayerTurn()
+    void Start()
     {
-        leftPlayerTurn.color = Color.green;
+        UIEventBroker.HumanMove += HumansMove;
+        UIEventBroker.ElfesMove += ElfesMove;
+        UIEventBroker.UIElfesScore += ElfesScore;
+        UIEventBroker.UIHumanScore += HumanScore;
+        CMEventBroker.UpdateElfesScore += ElfesScore;
+        CMEventBroker.UpdateHumanScore += HumanScore;
+       /* UIEventBroker.HumanSkill += HumanSkills;
+        UIEventBroker.ElfesSkill += ElfesSkills;*/
     }
-    public void RightPlayerTurn()
+
+  
+
+    public void HumansMove()
     {
-        rightPlayerTurn.color = Color.green;
+        turnHuman.GetComponent<Image>().color = turnColor;
+        turnElfes.GetComponent<Image>().color = basicColor;
     }
 
+    public void ElfesMove()
+    {
+        turnElfes.GetComponent<Image>().color = turnColor;
+        turnHuman.GetComponent<Image>().color = basicColor;
+    }
 
+    private void ElfesScore(int elfesScore)
+    {
+        elfesScoreText.text  += elfesScore;
+    }
+    private void HumanScore(int humanScore)
+    {
+        humanScoreText.text += humanScore.ToString();
+    }
 
+    public void HumanSkills()
+    {
+        if (GameManager.Instance.selectedUnit.sanctuary == true && GameManager.Instance.selectedUnit.owner == Unit.Owner.Humans)
+        {
+            humanSanktuariumBtn.SetActive(true);
+        }
+        else
+        {
+            humanSanktuariumBtn.SetActive(false);
+        }
+    }
+    public void ElfesSkills()
+    {
+        if (GameManager.Instance.selectedUnit.sanctuary == true && GameManager.Instance.selectedUnit.owner == Unit.Owner.Elfes)
+        {
+            elfSanktuariumBtn.SetActive(true);
+        }
+        else
+        {
+            elfSanktuariumBtn.SetActive(false);
+        }
+    }
 }
