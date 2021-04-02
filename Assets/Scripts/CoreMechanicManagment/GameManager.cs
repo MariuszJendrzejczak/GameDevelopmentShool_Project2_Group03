@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         instance = this;
         gameState = GameState.MainManu;
         pathfinding = GetComponent<Pathfinding>();
-
     }
     private void Start()
     {
@@ -375,5 +374,9 @@ public class GameManager : MonoBehaviour
         {
             unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
         }
+    }
+    public void ClearNodeList()
+    {
+        pathfinding.ClearPathList();
     }
 }

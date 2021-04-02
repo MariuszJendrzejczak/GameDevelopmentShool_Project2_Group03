@@ -65,6 +65,7 @@ public class Unit : MonoBehaviour
                     else if (GameManager.Instance.selectedUnit == null)
                     {
                         GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange, myCurrentNode);
+                        GameManager.Instance.ClearNodeList();
                         isSelected = true;
                     }
                 }
@@ -97,6 +98,7 @@ public class Unit : MonoBehaviour
                         else if (GameManager.Instance.selectedUnit == null)
                         {
                             GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange, myCurrentNode);
+                            GameManager.Instance.ClearNodeList();
                             isSelected = true;
                         }
                     }
@@ -111,8 +113,7 @@ public class Unit : MonoBehaviour
                             {
                                 TakeDamage(GameManager.Instance.selectedUnit.unitAttack);
                             }
-                        }
-                    
+                        }                   
                 }
                 break;
             case GameManager.GameState.SkillSwapUnits:
@@ -145,7 +146,6 @@ public class Unit : MonoBehaviour
 
     private void OnMouseExit()
     {
-
         switch (GameManager.Instance.gameState)
         {
             case GameManager.GameState.UnitChoosing:

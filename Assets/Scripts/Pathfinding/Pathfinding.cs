@@ -24,7 +24,10 @@ public class Pathfinding : MonoBehaviour
             nodeList.Add(tile.GetComponent<PathNode>());
         }
     }
-
+    public void ClearPathList()
+    {
+        pathNodeList.Clear();
+    }
 
     private void CalculateDistance()
     {
