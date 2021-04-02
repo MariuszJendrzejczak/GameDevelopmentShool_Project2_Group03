@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour
             case GameManager.GameState.RightPlayerTurn:
                 if (isWalkAble)
                 {
-                    GameManager.Instance.MoveUnit(this.GetComponent<PathNode>());
+                    GameManager.Instance.MoveUnit(this.transform.position);
                     GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0, null);
                 }
                 else
@@ -55,7 +55,11 @@ public class Tile : MonoBehaviour
             case GameManager.GameState.DeploymentRight:
                 if (isWalkAble)
                 {
-                    GameManager.Instance.selectedUnit.transform.position = this.transform.position;
+                    if(GameManager.Instance.selectedUnit != null)
+                    {
+                        GameManager.Instance.selectedUnit.transform.position = this.transform.position;
+                    }
+
                 }
                 break;
         }      
