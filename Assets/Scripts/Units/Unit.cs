@@ -54,6 +54,18 @@ public class Unit : MonoBehaviour
                 CMEventBroker.CallUnitChoosed(this.gameObject);
                 Debug.Log(this.name + "został wysłany (UnitScript)");
                 break;
+            case GameManager.GameState.DeploymentLeft:
+                if (owner == Owner.Humans)
+                {
+                    GameManager.Instance.selectedUnit = this;
+                }
+                break;
+            case GameManager.GameState.DeploymentRight:
+                if (owner == Owner.Elfes)
+                {
+                    GameManager.Instance.selectedUnit = this;
+                }
+                break;
             case GameManager.GameState.LeftPlayerTurn:
                 if (owner == Owner.Humans)
                 {
