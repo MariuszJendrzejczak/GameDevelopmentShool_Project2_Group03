@@ -105,7 +105,7 @@ MonoBehaviour:
   grabedObject: {fileID: 0}
   x: 0
   y: 0
-  developmentModeSprite: {fileID: 21300000, guid: 21021518ef3defe47ac5bd76e3047380,
+  developmentModeSprite: {fileID: 21300000, guid: b40da8d4b630abf4cafccc5d4c4408ad,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: 99b1042dece1875479cd34265468a333, type: 3}
   isSelected: 0

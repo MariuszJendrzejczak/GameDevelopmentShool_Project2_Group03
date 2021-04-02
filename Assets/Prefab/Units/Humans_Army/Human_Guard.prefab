@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8514932963792897191}
   - component: {fileID: 3978288720805085162}
   m_Layer: 8
-  m_Name: Human_Guard-green-orb
+  m_Name: Human_Guard
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   grabedObject: {fileID: 0}
   x: 0
   y: 0
-  developmentModeSprite: {fileID: 21300000, guid: 70fdb2748234bfd45b1a944052262bf8,
+  developmentModeSprite: {fileID: 21300000, guid: 84fb7c47c43333e469d3e9a68812dab9,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: e494e49e99dae3e44a0c8eff83e1fb0b, type: 3}
   isSelected: 0

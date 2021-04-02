@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 7904508938514086548}
   - component: {fileID: 5997740453426003515}
   - component: {fileID: 4871171752285748891}
+  - component: {fileID: 4733038899721946905}
   m_Layer: 8
-  m_Name: Giant-pink-orb
+  m_Name: Giant
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +106,7 @@ MonoBehaviour:
   grabedObject: {fileID: 0}
   x: 0
   y: 0
-  developmentModeSprite: {fileID: 21300000, guid: 21021518ef3defe47ac5bd76e3047380,
+  developmentModeSprite: {fileID: 21300000, guid: b40da8d4b630abf4cafccc5d4c4408ad,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: ea8127e1c53048a4d9ad133f95c4615e, type: 3}
   isSelected: 0
@@ -172,3 +173,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4733038899721946905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613066040563889875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a500679132e1f4489962b20cbc7bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activationButtonSprite: {fileID: 0}
+  inactiveButtonSprite: {fileID: 0}
