@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float moveStep = 0.04f;
     [SerializeField]
-    private GameObject tilesContaainter, unitsContainer;
+    public GameObject tilesContaainter, unitsContainer;
     private PathNode startNode;
     [SerializeField]
     public List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
     [SerializeField]
-    private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
+    public List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     [SerializeField]
     private int humanScore, elfesScore;
     private void Awake()
@@ -81,16 +81,24 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.DeploymentLeft:
                 //przygotowanie sceny po UnitChoosing
-                tilesContaainter = GameObject.Find("TilesContainer");
+                /*tilesContaainter = GameObject.Find("TilesContainer");
                 unitsContainer = GameObject.Find("UnitsContainer");
-                for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+                if(tilesContaainter != null)
                 {
-                    tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+                    for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+                    {
+                        tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+                    }
                 }
+                else
+                {
+                    Debug.Log("TilesContainer is null");
+                }
+
                 for (int i = 0; i < unitsContainer.transform.childCount; i++)
                 {
                     unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
-                }
+                }*/
 
                 //podświetlenie startowych tilei
                 foreach (GameObject tile in tilesList)
@@ -251,6 +259,8 @@ public class GameManager : MonoBehaviour
                 obj.GetComponent<Unit>().NewTurnForUnit();
             }
         }
+        if (Input.GetKeyDown(KeyCode.W))
+            SetupScene();
     }
 
     public void GameModeChanged()
@@ -344,5 +354,26 @@ public class GameManager : MonoBehaviour
     public List<GameObject> GrabTilesList()
     {
         return tilesList;
+    }
+    public void SetupScene()
+    {
+        for (int i = 0; i < tilesContaainter.transform.childCount; i++)
+        {
+            tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
+        }
+        /*foreach (GameObject unit in humanPlayerUnitList)
+        {
+            unitsList.Add(unit);
+            unit.transform.SetParent(unitsContainer.transform);
+        }
+        foreach (GameObject unit in elfesPlayerUnitList)
+        {
+            unitsList.Add(unit);
+            unit.transform.SetParent(unitsContainer.transform);
+        }*/
+        for (int i = 0; i <unitsContainer.transform.childCount; i++)
+        {
+            unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
+        }
     }
 }

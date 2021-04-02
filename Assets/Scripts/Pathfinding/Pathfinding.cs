@@ -20,7 +20,7 @@ public class Pathfinding : MonoBehaviour
     public void GetNodeList()
     {
         foreach (GameObject tile in GameManager.Instance.tilesList)
-        {;
+        {
             nodeList.Add(tile.GetComponent<PathNode>());
         }
     }
@@ -60,7 +60,6 @@ public class Pathfinding : MonoBehaviour
         Debug.Log("CheckHorizontal");
         if (xDistance > 0)
         {
-            Debug.Log("+");
             for (int i = xBuffor; i < xDistance; i++)
             {
                 if (brakeBool)
@@ -75,6 +74,7 @@ public class Pathfinding : MonoBehaviour
                         if (node.walkAble)
                         {
                             pathNodeList.Add(node);
+                            Debug.Log("+");
                             xBuffor = i;
                             break;
                         }
