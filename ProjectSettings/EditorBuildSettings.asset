@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ScenaMariusz.unity
     guid: 8bf9ed0297a5f5c4395cc891e53bfcfd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ScenaMariusz2.unity
     guid: 8b987bdb729ce8c438cf8ba6d88fe5f6
+  - enabled: 1
+    path: Assets/Scenes/Mateusz/FinalScene.unity
+    guid: ca45616340f5ba945bafc602980ca145
   m_configObjects: {}

@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     public enum Owner { Humans, Elfes }
     [SerializeField]
     public Owner owner;
-    public enum Tag { none, Fast, Mage, Ranger, Heavy, Warrior, Divine }
+    public enum Tag { none, Fast, Wizard, GunMan, Heavy, Warrior, Divine }
     public Tag myTag, weakOnTag, weakOnTag2, weakOnTag3;
     [Tooltip("Wartość dodawana do ataku jednostki, która atakuje lub kontratakuje jednostkę z wrażliwością na Tag jednostki")]
     public int tagBonus;
@@ -278,11 +278,13 @@ public class Unit : MonoBehaviour
                 {
                     CMEventBroker.CallUpdateHumanScore(1);
                     UIEventBroker.CallUIHumanScore(1);
+                    GameManager.Instance.humansAlive--;
                 }
                 else if (owner == Owner.Elfes)
                 {
                     CMEventBroker.CallUpdateElfesScore(1);
                     UIEventBroker.CallUIElfesScore(1);
+                    GameManager.Instance.elfesAlive--;
                 }
             }
             if (GameManager.Instance.selectedUnit.passiveSkillPush == true)

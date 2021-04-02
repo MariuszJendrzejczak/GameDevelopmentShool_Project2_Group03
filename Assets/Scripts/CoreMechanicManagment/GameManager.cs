@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     [SerializeField]
     private int humanScore, elfesScore;
+    public int humansAlive = 6, elfesAlive = 6;
+    public int roundsToEnd = 7;
+    public bool guffinPickedUp = false;
     private void Awake()
     {
         instance = this;
@@ -49,18 +52,13 @@ public class GameManager : MonoBehaviour
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
         CMEventBroker.UpdateElfesScore += UpdateElfesScore;
         CMEventBroker.UpdateHumanScore += UpdateHumanScore;
-
-        
+  
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
     }
 
     private void Update()
     {
-        /*if (tilesContaainter == null)
-        {
-            tilesContaainter = GameObject.Find("TilesContainer");
-        }*/
         StateUpdateCall();
         if (gameState == GameState.LeftPlayerTurn || gameState == GameState.RightPlayerTurn)
         {
@@ -69,6 +67,16 @@ public class GameManager : MonoBehaviour
         KaybordIntputOnScen();
         if (Input.GetKeyDown(KeyCode.N))
             CMEventBroker.CallChangeGameState();
+        EndCheck();
+    }
+
+    private void EndCheck()
+    {
+        if (humansAlive == 0 || elfesAlive == 0 || roundsToEnd == 0)
+        {
+            gameState = GameState.EndGame;
+            CMEventBroker.CallChangeGameState();
+        }
     }
     public void EndofTurn()
     {
@@ -139,6 +147,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.LeftPlayerBeforeTurn:
+                if (guffinPickedUp)
+                {
+                    roundsToEnd--;
+                }
                 selectedUnit = null;
                 foreach (GameObject tile in tilesList)
                 {
@@ -173,7 +185,7 @@ public class GameManager : MonoBehaviour
             case GameState.RightPlayerTurn:
                 break;
             case GameState.EndGame:
-                // 1. Przygotowanie podsumowania gry (matematyka)
+                Debug.Log("End of game");
                 break;
         }
     }
@@ -396,16 +408,6 @@ public class GameManager : MonoBehaviour
         {
             tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
         }
-        /*foreach (GameObject unit in humanPlayerUnitList)
-        {
-            unitsList.Add(unit);
-            unit.transform.SetParent(unitsContainer.transform);
-        }
-        foreach (GameObject unit in elfesPlayerUnitList)
-        {
-            unitsList.Add(unit);
-            unit.transform.SetParent(unitsContainer.transform);
-        }*/
         for (int i = 0; i <unitsContainer.transform.childCount; i++)
         {
             unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
