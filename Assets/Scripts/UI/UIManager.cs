@@ -25,6 +25,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn;
 
+    Unit unit;
+    SkillSanctuarium skillSanctuarium;
+    SkillSwapUnits skillSwap;
+
 
     void Start()
     {
@@ -34,8 +38,6 @@ public class UIManager : MonoBehaviour
         UIEventBroker.UIHumanScore += HumanScore;
         CMEventBroker.UpdateElfesScore += ElfesScore;
         CMEventBroker.UpdateHumanScore += HumanScore;
-       /* UIEventBroker.HumanSkill += HumanSkills;
-        UIEventBroker.ElfesSkill += ElfesSkills;*/
     }
 
   
@@ -63,24 +65,48 @@ public class UIManager : MonoBehaviour
 
     public void HumanSkills()
     {
-        if (GameManager.Instance.selectedUnit.sanctuary == true && GameManager.Instance.selectedUnit.owner == Unit.Owner.Humans)
+        if (GameManager.Instance.selectedUnit.owner == Unit.Owner.Humans)
         {
-            humanSanktuariumBtn.SetActive(true);
-        }
-        else
-        {
-            humanSanktuariumBtn.SetActive(false);
+            if (GameManager.Instance.selectedUnit.GetComponent<SkillSwapUnits>())
+            {
+                humanSwapBtn.SetActive(true);
+            }
+            else
+            {
+                humanSwapBtn.SetActive(false);
+            }
+
+            if (GameManager.Instance.selectedUnit.GetComponent<SkillSanctuarium>())
+            {
+                humanSanktuariumBtn.SetActive(true);
+            }
+            else
+            {
+                humanSanktuariumBtn.SetActive(false);
+            }
         }
     }
     public void ElfesSkills()
     {
-        if (GameManager.Instance.selectedUnit.sanctuary == true && GameManager.Instance.selectedUnit.owner == Unit.Owner.Elfes)
+        if (GameManager.Instance.selectedUnit.owner == Unit.Owner.Elfes)
         {
-            elfSanktuariumBtn.SetActive(true);
-        }
-        else
-        {
-            elfSanktuariumBtn.SetActive(false);
+            if (GameManager.Instance.selectedUnit.GetComponent<SkillSwapUnits>())
+            {
+                elfesSwapBtn.SetActive(true);
+            }
+            else
+            {
+                elfesSwapBtn.SetActive(false);
+            }
+
+            if (GameManager.Instance.selectedUnit.GetComponent<SkillSanctuarium>())
+            {
+                elfSanktuariumBtn.SetActive(true);
+            }
+            else
+            {
+                elfSanktuariumBtn.SetActive(false);
+            }
         }
     }
 }

@@ -1472,7 +1472,7 @@ GameObject:
   - component: {fileID: 5604105563144069661}
   - component: {fileID: 8683714316103280262}
   m_Layer: 5
-  m_Name: ElfSkillSanktuariumSwapBtn
+  m_Name: ElfSwapBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1495,7 +1495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1612, y: -4}
+  m_AnchoredPosition: {x: 1612, y: -0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5604105563144069661
@@ -4923,7 +4923,7 @@ GameObject:
   - component: {fileID: 7450293979681487288}
   - component: {fileID: 1212343248075063750}
   m_Layer: 5
-  m_Name: SanktuariumBtn
+  m_Name: ElfSwapBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
