@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using UnityEditor.PackageManager.Requests;
 using UnityEditorInternal;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public enum GameMode { DeveloperMode, NormalMode}
     public GameMode gameMode;
     public Unit selectedUnit, attackedUnit;
+    private Pathfinding pathfinding;
     private int selectedUnitattack, selectedUnitArmor, selectedUnitSpeed, selectedUnitAttackRange, selectedUnitHealth;
     private int attackedUnitattack, attackedUnitArmor, attackedUnitSpeed, attackedUnitAttackRange, attackedUnitHealth;
     [SerializeField]
@@ -27,8 +29,9 @@ public class GameManager : MonoBehaviour
     private float moveStep = 0.04f;
     [SerializeField]
     private GameObject tilesContaainter, unitsContainer;
+    private PathNode startNode;
     [SerializeField]
-    private List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
+    public List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
     [SerializeField]
     private List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     [SerializeField]
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         gameState = GameState.MainManu;
+        pathfinding = GetComponent<Pathfinding>();
 
     }
     private void Start()
@@ -273,7 +277,7 @@ public class GameManager : MonoBehaviour
             unit.GetComponent<Unit>().UnHighLightMe();  
         }
         
-        UnitSelection(null, 0,0,0,0,0);
+        UnitSelection(null, 0,0,0,0,0, null);
     }
 
     public void CounterAttack()
@@ -283,7 +287,7 @@ public class GameManager : MonoBehaviour
         attackedUnit = null;
     }
 
-    public void UnitSelection(Unit unit, int attack, int armor, int healt, int speed, int attackRange)
+    public void UnitSelection(Unit unit, int attack, int armor, int healt, int speed, int attackRange, PathNode node)
     {
         selectedUnit = unit;
         selectedUnitattack = attack;
@@ -291,6 +295,7 @@ public class GameManager : MonoBehaviour
         selectedUnitHealth = healt;
         selectedUnitSpeed = speed;
         selectedUnitAttackRange = attackRange;
+        startNode = node;
 
         UIEventBroker.CallUnitSelected();
         // miejsce na wywołanie eventu do UI, przekazującego parametry wybranego unitu do wyświetlenia. (np. UnitSelected) 
@@ -299,9 +304,10 @@ public class GameManager : MonoBehaviour
         // UIEventBroker.UnitWasSelected += Metoda która przekazuje wartości w UIManagerze. 
     }
 
-    public void MoveUnit(Vector2 value)
+    public void MoveUnit(PathNode node)
     {
-        selectedUnit.StartMovement(value, moveStep);
+        pathfinding.FindAPath(startNode, node);
+        selectedUnit.StartMovement(pathfinding.pathNodeList, moveStep);
     }
 
     public void GrabHaldeToAttacked(Unit attacked, int attack, int armor, int healt, int speed, int attackRange)
@@ -334,5 +340,9 @@ public class GameManager : MonoBehaviour
     private void UpdateElfesScore(int value)
     {
         elfesScore += value;
+    }
+    public List<GameObject> GrabTilesList()
+    {
+        return tilesList;
     }
 }
