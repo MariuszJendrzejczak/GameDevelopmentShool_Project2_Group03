@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8685482053602167125}
   - component: {fileID: 8810644546183446358}
   m_Layer: 8
-  m_Name: Winter_Wolf_Orb_Grey
+  m_Name: Winter_Wolf
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,21 +98,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 1
   myTag: 1
-  weakOnTag: 4
+  weakOnTag: 3
   weakOnTag2: 0
   weakOnTag3: 0
   tagBonus: 17
   grabedObject: {fileID: 0}
   x: 0
   y: 0
-  developmentModeSprite: {fileID: 21300000, guid: a7a7d186bd08a454da6edda85d0d879f,
+  developmentModeSprite: {fileID: 21300000, guid: 70fdb2748234bfd45b1a944052262bf8,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: ecb6283bd9fd71a4ab4f6371f243282b, type: 3}
   isSelected: 0
   sanctuary: 0
   passiveSkillPush: 0
-  baseUnitSpeed: 6
-  baseUnitHealth: 115
+  baseUnitSpeed: 5
+  baseUnitHealth: 122
   baseUnitArmor: 0
   baseUnitAttack: 20
   baseUnitAttackRange: 1

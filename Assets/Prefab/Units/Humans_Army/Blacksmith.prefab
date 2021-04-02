@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1297173033707337594}
   - component: {fileID: 7538536917437387276}
   m_Layer: 8
-  m_Name: Blacksmith-violet-orb
+  m_Name: Blacksmith
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   weakOnTag: 2
   weakOnTag2: 3
   weakOnTag3: 6
-  tagBonus: 25
+  tagBonus: 35
   grabedObject: {fileID: 0}
   x: 0
   y: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   sanctuary: 0
   passiveSkillPush: 0
   baseUnitSpeed: 3
-  baseUnitHealth: 250
+  baseUnitHealth: 185
   baseUnitArmor: 0
   baseUnitAttack: 10
   baseUnitAttackRange: 1

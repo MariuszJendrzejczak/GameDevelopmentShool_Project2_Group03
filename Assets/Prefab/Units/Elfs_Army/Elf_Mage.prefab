@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3327905463812790191}
   - component: {fileID: 2387311415524426524}
   m_Layer: 8
-  m_Name: Mage_Elfe-blue-orb
+  m_Name: Elf_Mage
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,20 +99,20 @@ MonoBehaviour:
   owner: 1
   myTag: 2
   weakOnTag: 4
-  weakOnTag2: 6
+  weakOnTag2: 0
   weakOnTag3: 0
-  tagBonus: 15
+  tagBonus: 25
   grabedObject: {fileID: 0}
   x: 0
   y: 0
-  developmentModeSprite: {fileID: 21300000, guid: 84fb7c47c43333e469d3e9a68812dab9,
+  developmentModeSprite: {fileID: 21300000, guid: 21021518ef3defe47ac5bd76e3047380,
     type: 3}
   normalModeSprote: {fileID: 21300000, guid: 127092c7f98fe0a4cb51e64774788aea, type: 3}
   isSelected: 0
   sanctuary: 0
   passiveSkillPush: 0
   baseUnitSpeed: 2
-  baseUnitHealth: 125
+  baseUnitHealth: 112
   baseUnitArmor: 0
   baseUnitAttack: 25
   baseUnitAttackRange: 6
