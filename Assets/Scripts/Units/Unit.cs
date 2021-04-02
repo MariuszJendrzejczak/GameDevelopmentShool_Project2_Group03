@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public int tagBonus;
     public GameObject grabedObject = null;
     public float x, y;
+    [SerializeField]
     private PathNode myCurrentNode;
     private SpriteRenderer renderer;
     [SerializeField]
