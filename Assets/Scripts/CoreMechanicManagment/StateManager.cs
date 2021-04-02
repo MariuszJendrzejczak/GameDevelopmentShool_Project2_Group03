@@ -12,4 +12,13 @@ public class StateManager : MonoBehaviour
     {
         GameManager.Instance.EndofDeployment();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+            TurnEnd();
+        if (Input.GetKeyDown(KeyCode.D))
+            DeploymentEnd();
+
+    }
 }
