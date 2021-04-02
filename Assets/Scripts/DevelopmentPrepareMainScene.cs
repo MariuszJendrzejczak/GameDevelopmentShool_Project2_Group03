@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DevelopmentPrepareMainScene : MonoBehaviour
-{ 
+{
+    private Pathfinding pathfinding; 
+    private void Start()
+    {
+        pathfinding = GameObject.Find("GameManager").GetComponent<Pathfinding>();
+    }
     public void StartMainScene()
     {
-        Debug.Log("Click");
         GameManager.Instance.gameState = GameManager.GameState.DeploymentLeft;
         GameManager.Instance.EnterNewState();
         GameManager.Instance.gameState = GameManager.GameState.LeftPlayerTurn;
+        pathfinding.GetNodeList();
     }
 }

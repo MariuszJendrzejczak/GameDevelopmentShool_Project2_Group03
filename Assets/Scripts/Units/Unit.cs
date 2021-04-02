@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public int tagBonus;
     public GameObject grabedObject = null;
     public float x, y;
+    private PathNode myCurrentNode;
     private SpriteRenderer renderer;
     [SerializeField]
     private Sprite developmentModeSprite, normalModeSprote;
@@ -58,12 +59,12 @@ public class Unit : MonoBehaviour
                 {
                     if (GameManager.Instance.selectedUnit == this)
                     {
-                        GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
+                        GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0, null);
                         isSelected = false;
                     }
                     else if (GameManager.Instance.selectedUnit == null)
                     {
-                        GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                        GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange, myCurrentNode);
                         isSelected = true;
                     }
                 }
@@ -90,12 +91,12 @@ public class Unit : MonoBehaviour
                     {
                         if (GameManager.Instance.selectedUnit == this)
                         {
-                            GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0);
+                            GameManager.Instance.UnitSelection(null, 0, 0, 0, 0, 0, null);
                             isSelected = false;
                         }
                         else if (GameManager.Instance.selectedUnit == null)
                         {
-                            GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange);
+                            GameManager.Instance.UnitSelection(this, unitAttack, unitArmor, unitHealth, unitSpeed, unitAttackRange, myCurrentNode);
                             isSelected = true;
                         }
                     }
@@ -153,6 +154,14 @@ public class Unit : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Tile")
+        {
+            myCurrentNode = collision.GetComponent<PathNode>();
+        }
+    }
+
     private void ChangeMode()
     {
         switch (GameManager.Instance.gameMode)
@@ -179,9 +188,9 @@ public class Unit : MonoBehaviour
         unitAttackRange = baseUnitAttackRange;
     }
 
-    public void StartMovement(Vector2 value, float moveStep)
+    public void StartMovement(List<PathNode> pathList, float moveStep)
     {
-        StartCoroutine(UnitMovement(value, moveStep));
+        StartCoroutine(UnitMovement(pathList, moveStep));
         canMove = false;
     }
 
@@ -364,17 +373,23 @@ public class Unit : MonoBehaviour
         grabedObject.SetActive(true);
     }
 
-    IEnumerator UnitMovement(Vector2 tilePosition, float moveStep)
+    IEnumerator UnitMovement(List<PathNode> pathList, float moveStep)
     {
-        while (transform.position.x != tilePosition.x || transform.position.y != tilePosition.y)
+        int count1 = 0;
+        int count2 = 0;
+        foreach (PathNode node in pathList)
         {
-            transform.position = Vector2.MoveTowards(transform.position, tilePosition, moveStep * Time.deltaTime);
-            yield return null;
+            count1++;
+            if (count1 >= 100)
+                break;
+            while (transform.position.x != node.x || transform.position.y != node.y)
+            {
+                count2++;
+                if (count2 >= 1000)
+                    break;
+                transform.position = Vector2.MoveTowards(transform.position, node.transform.position, moveStep * Time.deltaTime);
+                yield return null;
+            }
         }
-        /*while (transform.position.y != tilePosition.y)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, tilePosition.y), moveStep * Time.deltaTime);
-            yield return null;
-        }*/
     }
 }

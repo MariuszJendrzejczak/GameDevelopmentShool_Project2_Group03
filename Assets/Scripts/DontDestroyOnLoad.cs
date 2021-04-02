@@ -9,10 +9,4 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
-
-    private void Update()
-    {
-
-    }
-
 }
