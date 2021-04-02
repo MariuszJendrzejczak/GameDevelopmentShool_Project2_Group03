@@ -10,6 +10,7 @@ public class MacGuffin : MonoBehaviour
         {
             collision.GetComponent<Unit>().GrabMacGuffin(this.gameObject);
             transform.SetParent(collision.transform);
+            GameManager.Instance.guffinPickedUp = true;
         }
 
     }
