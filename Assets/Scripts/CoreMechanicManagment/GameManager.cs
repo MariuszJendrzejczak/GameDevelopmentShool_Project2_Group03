@@ -361,7 +361,7 @@ public class GameManager : MonoBehaviour
         {
             tilesList.Add(tilesContaainter.transform.GetChild(i).gameObject);
         }
-        foreach (GameObject unit in humanPlayerUnitList)
+        /*foreach (GameObject unit in humanPlayerUnitList)
         {
             unitsList.Add(unit);
             unit.transform.SetParent(unitsContainer.transform);
@@ -370,6 +370,10 @@ public class GameManager : MonoBehaviour
         {
             unitsList.Add(unit);
             unit.transform.SetParent(unitsContainer.transform);
+        }*/
+        for (int i = 0; i <unitsContainer.transform.childCount; i++)
+        {
+            unitsList.Add(unitsContainer.transform.GetChild(i).gameObject);
         }
     }
 }
