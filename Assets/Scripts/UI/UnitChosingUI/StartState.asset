@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b8c146fabe4664299be76bbfb9db4c, type: 3}
   m_Name: StartState
   m_EditorClassIdentifier: 
-  storyText: Hej
+  storyText: Let's play a game !
   nextStates:
   - {fileID: 11400000, guid: 103659fd2d72fc84290e5d26b54bba82, type: 2}
