@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
             case GameState.RightPlayerTurn:
                 break;
             case GameState.EndGame:
+                UIEventBroker.CallShowEndGame();
                 Debug.Log("End of game");
                 break;
         }

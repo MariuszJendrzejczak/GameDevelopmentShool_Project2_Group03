@@ -2593,6 +2593,10 @@ MonoBehaviour:
   elfesPlayerUnitList: []
   humanScore: 0
   elfesScore: 0
+  humansAlive: 6
+  elfesAlive: 6
+  roundsToEnd: 7
+  guffinPickedUp: 0
 --- !u!4 &998446702
 Transform:
   m_ObjectHideFlags: 0

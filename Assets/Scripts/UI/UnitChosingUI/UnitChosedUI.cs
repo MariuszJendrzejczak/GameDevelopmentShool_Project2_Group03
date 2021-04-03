@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UnitChosedUI : MonoBehaviour
@@ -14,6 +15,8 @@ public class UnitChosedUI : MonoBehaviour
     
     [SerializeField]
     private List<GameObject> choosedHumanUnitList, choosedElfUnitList;
+
+    bool isMute;
 
     private void Start()
     {
@@ -109,10 +112,11 @@ public class UnitChosedUI : MonoBehaviour
 
     public void SaundOffBtn()
     {
-
+        isMute = !isMute;
+     AudioListener.volume = isMute ? 0 : 1;
     }
     public void ExitBtn()
     {
-
+       SceneManager.LoadScene("Menu");
     }
 }

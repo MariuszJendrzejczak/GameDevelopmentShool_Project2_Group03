@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -25,10 +26,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn;
 
+    [SerializeField]
+     GameObject endGame;
+
     Unit unit;
     SkillSanctuarium skillSanctuarium;
     SkillSwapUnits skillSwap;
-
+    bool isMute;
 
     void Start()
     {
@@ -38,6 +42,7 @@ public class UIManager : MonoBehaviour
         UIEventBroker.UIHumanScore += HumanScore;
         CMEventBroker.UpdateElfesScore += ElfesScore;
         CMEventBroker.UpdateHumanScore += HumanScore;
+        UIEventBroker.ShowEndGame += EndGame;
     }
 
   
@@ -108,5 +113,29 @@ public class UIManager : MonoBehaviour
                 elfSanktuariumBtn.SetActive(false);
             }
         }
+    }
+
+    private void EndGame()
+    {
+        endGame.SetActive(true);
+    }    
+
+
+    public void RestartBtn()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    public void ExitBtn()
+    {
+        Application.Quit();
+    }
+    public void SoundBtn()
+    {
+        isMute = !isMute;
+        AudioListener.volume = isMute ? 0 : 1;
+    }
+    public void DevBtn()
+    {
+
     }
 }

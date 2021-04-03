@@ -124,4 +124,13 @@ public class UIEventBroker
             ShowElfesUnitsChoosed(elfes);
         }
     }
+    public static event Action ShowEndGame;
+    public static void CallShowEndGame()
+    {
+        if (ShowEndGame != null)
+        {
+            ShowEndGame();
+        }
+    }
+
 }
