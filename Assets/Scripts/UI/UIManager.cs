@@ -136,6 +136,13 @@ public class UIManager : MonoBehaviour
     }
     public void DevBtn()
     {
-
+        if(GameManager.Instance.gameMode == GameManager.GameMode.DeveloperMode)
+        {
+            GameManager.Instance.gameMode = GameManager.GameMode.NormalMode;
+        }
+        else if (GameManager.Instance.gameMode == GameManager.GameMode.NormalMode)
+        {
+            GameManager.Instance.gameMode = GameManager.GameMode.DeveloperMode;
+        }
     }
 }
