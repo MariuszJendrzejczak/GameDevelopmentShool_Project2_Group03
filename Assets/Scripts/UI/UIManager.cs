@@ -20,8 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image turnHuman, turnElfes;
 
-    [SerializeField]
-    TextMeshProUGUI humanScoreText, elfesScoreText;
+    [SerializeField] private TextMeshProUGUI humanScoreText, elfesScoreText, endHumanScore, endElfesScore;
 
     [SerializeField]
     GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn;
@@ -33,6 +32,7 @@ public class UIManager : MonoBehaviour
     SkillSanctuarium skillSanctuarium;
     SkillSwapUnits skillSwap;
     bool isMute;
+    private bool devmode;
 
     void Start()
     {
@@ -47,12 +47,14 @@ public class UIManager : MonoBehaviour
 
   
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void HumansMove()
     {
         turnHuman.GetComponent<Image>().color = turnColor;
         turnElfes.GetComponent<Image>().color = basicColor;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void ElfesMove()
     {
         turnElfes.GetComponent<Image>().color = turnColor;
@@ -62,10 +64,12 @@ public class UIManager : MonoBehaviour
     private void ElfesScore(int elfesScore)
     {
         elfesScoreText.text  += elfesScore;
+        endElfesScore.text = "Score: " + elfesScore;
     }
     private void HumanScore(int humanScore)
     {
-        humanScoreText.text += humanScore.ToString();
+        humanScoreText.text += humanScore;
+        endHumanScore.text = "Score: " + humanScore;
     }
 
     public void HumanSkills()
@@ -136,7 +140,7 @@ public class UIManager : MonoBehaviour
     }
     public void DevBtn()
     {
-        if(GameManager.Instance.gameMode == GameManager.GameMode.DeveloperMode)
+        if (GameManager.Instance.gameMode == GameManager.GameMode.DeveloperMode)
         {
             GameManager.Instance.gameMode = GameManager.GameMode.NormalMode;
         }
@@ -144,5 +148,6 @@ public class UIManager : MonoBehaviour
         {
             GameManager.Instance.gameMode = GameManager.GameMode.DeveloperMode;
         }
+        CMEventBroker.CallChangeGameMode();
     }
 }

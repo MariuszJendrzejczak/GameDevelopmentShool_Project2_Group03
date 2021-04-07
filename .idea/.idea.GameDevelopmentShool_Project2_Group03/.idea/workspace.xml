@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7219d7da-3620-44c2-93b8-4dad1554bca4" name="Default Changelist" comment="" />
+    <list default="true" id="7219d7da-3620-44c2-93b8-4dad1554bca4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GameDevelopmentShool_Project2_Group03/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GameDevelopmentShool_Project2_Group03/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +16,7 @@
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/UI/TimerScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qntY08LTztvpk4bSOGux6jWSyX" />
@@ -56,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1617727227962</updated>
       <workItem from="1617727233227" duration="57000" />
-      <workItem from="1617817141301" duration="621000" />
+      <workItem from="1617817141301" duration="4290000" />
     </task>
     <servers />
   </component>
