@@ -132,5 +132,20 @@ public class UIEventBroker
             ShowEndGame();
         }
     }
-
+    public static event Action EndDeployment;
+    public static void CallEndDeployment()
+    {
+        if (EndDeployment != null)
+        {
+            EndDeployment();
+        }
+    }
+    public static event Action NextTurn;
+    public static void CallNextTurn()
+    {
+        if (NextTurn != null)
+        {
+            NextTurn();
+        }
+    }
 }

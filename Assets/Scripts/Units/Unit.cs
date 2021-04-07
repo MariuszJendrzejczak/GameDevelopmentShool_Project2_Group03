@@ -151,9 +151,17 @@ public class Unit : MonoBehaviour
                 break;
         }
 
-         if(GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+        if (GameManager.Instance.gameState == GameManager.GameState.DeploymentLeft ||
+            GameManager.Instance.gameState == GameManager.GameState.DeploymentRight)
         {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else
+        {
+            if (GameManager.Instance.selectedUnit != null && GameManager.Instance.selectedUnit != this)
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
         }
          
     }

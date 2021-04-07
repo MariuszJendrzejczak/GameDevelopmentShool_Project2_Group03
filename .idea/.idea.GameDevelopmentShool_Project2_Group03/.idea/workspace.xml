@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7219d7da-3620-44c2-93b8-4dad1554bca4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GameDevelopmentShool_Project2_Group03/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GameDevelopmentShool_Project2_Group03/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AttackedUnitStat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AttackedUnitStat.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +18,7 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/UI/TimerScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/AttackedUnitStat.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qntY08LTztvpk4bSOGux6jWSyX" />
@@ -25,6 +27,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -41,10 +45,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="8120">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="8120" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -60,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1617727227962</updated>
       <workItem from="1617727233227" duration="57000" />
-      <workItem from="1617817141301" duration="4290000" />
+      <workItem from="1617817141301" duration="6638000" />
     </task>
     <servers />
   </component>

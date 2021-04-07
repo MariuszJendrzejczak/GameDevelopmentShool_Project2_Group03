@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
         CMEventBroker.UpdateElfesScore += UpdateElfesScore;
         CMEventBroker.UpdateHumanScore += UpdateHumanScore;
-  
+     
         /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
     }
@@ -199,22 +199,26 @@ public class GameManager : MonoBehaviour
                 // 1. OnMauseClick na wyświetlonej jednostce, umieszcza ją w liście jednostek danego gracza. Zaimplementować w skrypcie Unit! (leftPlayerUnitList, rightPlayerUnitList)
                 break;
             case GameState.DeploymentLeft:
+                UIEventBroker.CallEndDeployment();
                 //sekcja przygotowujaca gamemanagerza do głownej sceny gry (łapanie referencji do objektów)
                 // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
                 // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
                 break;
             case GameState.DeploymentRight:
+                UIEventBroker.CallEndDeployment();
                 break;
             case GameState.LeftPlayerBeforeTurn:
                 break;
             case GameState.LeftPlayerTurn:
                 UIEventBroker.CallHumanMove();
+                UIEventBroker.CallNextTurn();
                 // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
                 break;
             case GameState.RightPlayerBeforeTurn:
                 break;
             case GameState.RightPlayerTurn:
                 UIEventBroker.CallElfesMove();
+                UIEventBroker.CallNextTurn();
                 // 1 Analogicznie dla prawego gracza
                 break;
             case GameState.EndGame:

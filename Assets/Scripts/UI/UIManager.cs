@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI humanScoreText, elfesScoreText, endHumanScore, endElfesScore;
 
     [SerializeField]
-    GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn;
+    GameObject humanSanktuariumBtn, elfesSwapBtn, humanSwapBtn, elfSanktuariumBtn, endDeploymentBtn, nextTurnBtn;
 
     [SerializeField]
      GameObject endGame;
@@ -43,9 +43,10 @@ public class UIManager : MonoBehaviour
         CMEventBroker.UpdateElfesScore += ElfesScore;
         CMEventBroker.UpdateHumanScore += HumanScore;
         UIEventBroker.ShowEndGame += EndGame;
+        UIEventBroker.EndDeployment += Deployment;
+        UIEventBroker.NextTurn += NextTurntBtn;
     }
 
-  
 
     // ReSharper disable Unity.PerformanceAnalysis
     public void HumansMove()
@@ -122,8 +123,18 @@ public class UIManager : MonoBehaviour
     private void EndGame()
     {
         endGame.SetActive(true);
-    }    
+    }
 
+    private void Deployment()
+    {
+      nextTurnBtn.SetActive(false);
+    }
+    private void NextTurntBtn()
+    {
+        nextTurnBtn.SetActive(true);
+        endDeploymentBtn.SetActive(false);
+
+    }
 
     public void RestartBtn()
     {
