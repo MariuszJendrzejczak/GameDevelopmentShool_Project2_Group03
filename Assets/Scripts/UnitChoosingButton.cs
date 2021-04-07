@@ -14,7 +14,5 @@ public class UnitChoosingButton : MonoBehaviour
     {
         unitChoosing.SendFinalUnitListsToGameManager();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        GameManager.Instance.gameState = GameManager.GameState.DeploymentLeft;
-        CMEventBroker.CallChangeGameState();
     }
 }

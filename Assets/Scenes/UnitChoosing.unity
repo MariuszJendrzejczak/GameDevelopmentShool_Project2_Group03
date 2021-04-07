@@ -5398,6 +5398,8 @@ MonoBehaviour:
   choosedHumanPlayerUnitList: []
   choosedElfesPlayerUnitList: []
   unitsContainer: {fileID: 2052282297}
+  nextBtn: {fileID: 352715443}
+  startBtn: {fileID: 1881302336}
 --- !u!4 &1468459032
 Transform:
   m_ObjectHideFlags: 0

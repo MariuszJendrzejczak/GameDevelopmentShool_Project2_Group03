@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UnitChoosing : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class UnitChoosing : MonoBehaviour
     private List<GameObject> choosedHumanPlayerUnitList, choosedElfesPlayerUnitList;
     [SerializeField]
     private GameObject unitsContainer;
+    [SerializeField]
+    private GameObject nextBtn, startBtn;
 
     private void Awake()
     {
@@ -73,9 +76,10 @@ public class UnitChoosing : MonoBehaviour
                 }
                 break;
             case ChoosingState.humanForHuman:
-                //nothing
+                nextBtn.SetActive(false);
                 break;
             case ChoosingState.elfForHuman:
+                nextBtn.SetActive(false);
                 SetActiveFaleseForTempList();              
                 for (int i = 0; i < humanPlayerUnitList.Count; i++)
                 {
@@ -85,6 +89,7 @@ public class UnitChoosing : MonoBehaviour
                 break;
             case ChoosingState.elfForElf:
             case ChoosingState.humanForElf:
+                nextBtn.SetActive(false);
                 SetActiveFaleseForTempList();
                 for (int i = 0; i < elfesPlayerUnitList.Count; i++)
                 {
@@ -104,29 +109,33 @@ public class UnitChoosing : MonoBehaviour
 
     public void UnitChosed(GameObject unit)
     {
-        if (counter < 3)
+        if (state != ChoosingState.greetings)
         {
-            if (unit.GetComponent<Unit>().owner == Unit.Owner.Humans)
+            if (counter < 3)
             {
-                choosedHumanPlayerUnitList.Add(unit);
-                UIEventBroker.CallHumanChosedUnitPanel();
-                UIEventBroker.CallShowHumanUnitsChoosed(unit);
-                Debug.Log(unit.name + "został dodany do armii Ludzi (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
-                unit.SetActive(false);
-                counter++;
-                unit.SetActive(false);
-            }
-            if (unit.GetComponent<Unit>().owner == Unit.Owner.Elfes)
-            {
-                choosedElfesPlayerUnitList.Add(unit);
-                UIEventBroker.CallElfChosedUnitPanel();
-                UIEventBroker.CallShowElfesUnitsChoosed(unit);
-                Debug.Log(unit.name + "został dodany do armii Elfów (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
-                unit.SetActive(false);
-                counter++;
-                unit.SetActive(false);
+                if (unit.GetComponent<Unit>().owner == Unit.Owner.Humans)
+                {
+                    choosedHumanPlayerUnitList.Add(unit);
+                    UIEventBroker.CallHumanChosedUnitPanel();
+                    UIEventBroker.CallShowHumanUnitsChoosed(unit);
+                    Debug.Log(unit.name + "został dodany do armii Ludzi (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
+                    unit.SetActive(false);
+                    counter++;
+                    unit.SetActive(false);
+                }
+                if (unit.GetComponent<Unit>().owner == Unit.Owner.Elfes)
+                {
+                    choosedElfesPlayerUnitList.Add(unit);
+                    UIEventBroker.CallElfChosedUnitPanel();
+                    UIEventBroker.CallShowElfesUnitsChoosed(unit);
+                    Debug.Log(unit.name + "został dodany do armii Elfów (UnitChoosingScript)"); // może zostac zamienione na wiadomość dla UIManagera
+                    unit.SetActive(false);
+                    counter++;
+                    unit.SetActive(false);
+                }
             }
         }
+        
         
     }
 
@@ -147,6 +156,10 @@ public class UnitChoosing : MonoBehaviour
             SendFinalUnitListsToGameManager();
             Debug.Log("Wybór jednostek zakończony!");
             this.gameObject.SetActive(false);
+        }
+        if (counter == 3)
+        {
+            nextBtn.SetActive(true);
         }
     }
 }
