@@ -25854,6 +25854,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 5163486044852693979, guid: 92ed2a93ea47a704a96e840b748b2841,
+        type: 3}
+      propertyPath: timeRemaining
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 6916297839828764666, guid: 92ed2a93ea47a704a96e840b748b2841,
         type: 3}
       propertyPath: m_Pivot.x

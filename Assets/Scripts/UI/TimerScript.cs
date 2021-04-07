@@ -29,6 +29,7 @@ public class TimerScript : MonoBehaviour
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 timerIsRunning = false;
+                UIEventBroker.CallShowEndGame();
             }
         }
     }

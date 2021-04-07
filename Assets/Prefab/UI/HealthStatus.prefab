@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 125.89, y: 49.74}
+  m_AnchoredPosition: {x: 125.78, y: 49.74}
   m_SizeDelta: {x: 1.5025711, y: 0.6785898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7269318735426022679
@@ -75,9 +75,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingLayerID: -718010041
+  m_SortingLayer: 8
+  m_SortingOrder: 115
 --- !u!222 &7269318735426022678
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 7
+  m_fontSizeBase: 7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -168,14 +168,14 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.38781738, w: -0.3758545}
+  m_margin: {x: 0.62561035, y: 0, z: -0.38781738, w: -0.0914917}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 7269318735426022679}
   m_maskType: 0
-  _SortingLayerID: 0
-  _SortingOrder: 15
+  _SortingLayerID: -718010041
+  _SortingOrder: 115
 --- !u!114 &2086460947080727564
 MonoBehaviour:
   m_ObjectHideFlags: 0
