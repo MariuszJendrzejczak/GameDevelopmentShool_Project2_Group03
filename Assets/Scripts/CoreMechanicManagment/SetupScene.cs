@@ -32,10 +32,10 @@ public class SetupScene : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             GameObject unit = GameManager.Instance.elfesPlayerUnitList[i];
-            unit.transform.position = new Vector2(13, i + 5);
+            unit.transform.position = new Vector2(14, i + 5);
             unit.SetActive(true);
         }
-        GameManager.Instance.gameState = GameManager.GameState.DeploymentLeft;
+        GameManager.Instance.gameState = GameManager.GameState.PreDeployment;
         CMEventBroker.CallChangeGameState();
     }
 
