@@ -230,7 +230,11 @@ public class Unit : MonoBehaviour
     }
     public void UnHighLightMe()
     {
-        renderer.color = Color.white;
+        if (owner == Owner.Elfes)
+            renderer.color = Color.green;
+        else if (owner == Owner.Humans)
+            renderer.color = Color.HSVToRGB(0.624302f, 0.5235849f, 1);
+
         isAtteckable = false;
     }
     public void TakeDamage(int value)
