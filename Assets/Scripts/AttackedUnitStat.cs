@@ -28,6 +28,10 @@ public class AttackedUnitStat : MonoBehaviour
             tagText.text = "Tag: " + unit.myTag;
             speedText.text = "Speed: " + unit.unitSpeed;
             armorText.text = "Armor: " + unit.unitArmor;
-            attackSimText.text = "Give Damage: -" + GameManager.Instance.selectedUnit.unitAttack;
+            if(GameManager.Instance.selectedUnit != null)
+            {
+                attackSimText.text = "Give Damage: -" + GameManager.Instance.selectedUnit.unitAttack;
+            }
+            
     }
 }
