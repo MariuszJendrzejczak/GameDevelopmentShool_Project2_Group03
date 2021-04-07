@@ -182,21 +182,24 @@ public class Unit : MonoBehaviour
 
     private void ChangeMode()
     {
-        switch (GameManager.Instance.gameMode)
+        if(renderer != null)
         {
-            case GameManager.GameMode.DeveloperMode:
-                if (developmentModeSprite)
-                {
-                    renderer.sprite = developmentModeSprite;
-                }
-                break;
-            case GameManager.GameMode.NormalMode:
-                if (normalModeSprote)
-                {
-                    renderer.sprite = normalModeSprote;
-                }
-                break;
-        }
+            switch (GameManager.Instance.gameMode)
+            {
+                case GameManager.GameMode.DeveloperMode:
+                    if (developmentModeSprite)
+                    {
+                        renderer.sprite = developmentModeSprite;
+                    }
+                    break;
+                case GameManager.GameMode.NormalMode:
+                    if (normalModeSprote)
+                    {
+                        renderer.sprite = normalModeSprote;
+                    }
+                    break;
+            }
+        }  
     }
     public void SetBaseStatisticValues()
     {
