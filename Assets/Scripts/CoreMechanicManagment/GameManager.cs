@@ -246,14 +246,14 @@ public class GameManager : MonoBehaviour
                         obj.HighLightMe(Color.red);
                     }
                 }
-                foreach (GameObject unit in unitsList)
+                /*foreach (GameObject unit in unitsList)
                 {
                     if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
                     {
                         Unit obj = unit.GetComponent<Unit>();
                         obj.HighLightMe(Color.red);
                     }
-                }
+                }*/
             }
             else if (selectedUnit.canAtteck)
             {
@@ -266,11 +266,11 @@ public class GameManager : MonoBehaviour
                         {
                             case GameState.LeftPlayerTurn:                               
                                 if (obj.owner == Unit.Owner.Elfes)
-                                obj.HighLightMe(Color.black);
+                                obj.HighLightMe(Color.red);
                                 break;
                             case GameState.RightPlayerTurn:
                                 if (obj.owner == Unit.Owner.Humans)
-                                    obj.HighLightMe(Color.black);
+                                    obj.HighLightMe(Color.red);
                                 break;
                         }
                     }
