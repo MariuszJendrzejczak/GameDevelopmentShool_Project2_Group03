@@ -254,14 +254,6 @@ public class Unit : MonoBehaviour
                     Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
 
-                    if (GameManager.Instance.selectedUnit.owner == Owner.Elfes)
-                    {
-                        UIEventBroker.CallUIElfesScore(value);
-                    }
-                    else if (GameManager.Instance.selectedUnit.owner == Owner.Humans)
-                    {
-                        UIEventBroker.CallUIHumanScore(value);
-                    }
                 }
                 else
                 {
@@ -295,12 +287,14 @@ public class Unit : MonoBehaviour
                     CMEventBroker.CallUpdateHumanScore(1);
                     UIEventBroker.CallUIHumanScore(1);
                     GameManager.Instance.humansAlive--;
+                    gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 }
                 else if (owner == Owner.Elfes)
                 {
                     CMEventBroker.CallUpdateElfesScore(1);
                     UIEventBroker.CallUIElfesScore(1);
                     GameManager.Instance.elfesAlive--;
+                    gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 }
             }
             if (GameManager.Instance.selectedUnit.passiveSkillPush == true)
@@ -308,6 +302,7 @@ public class Unit : MonoBehaviour
                 TakePush(GameManager.Instance.selectedUnit);
             }
             GameManager.Instance.AfterAttack();
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     public void TakeCounterDamage(int value)
@@ -331,7 +326,7 @@ public class Unit : MonoBehaviour
             }
 
 
-            if (unitHealth <= 0)
+            if (unitHealth <= 0 || unitHealth  == 0)
             {
                 if (grabedObject)
                 {
@@ -339,6 +334,7 @@ public class Unit : MonoBehaviour
                 }
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
+             
             }
         }
     }
