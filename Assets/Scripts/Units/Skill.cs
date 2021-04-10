@@ -8,13 +8,12 @@ public class Skill : MonoBehaviour
     private Sprite activationButtonSprite, inactiveButtonSprite;
     protected Unit unit;
     protected bool isActive, canBeActivated;
-    // Start is called before the first frame update
+
     void Start()
     {
         unit = GetComponent<Unit>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isActive)

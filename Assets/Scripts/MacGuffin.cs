@@ -12,6 +12,5 @@ public class MacGuffin : MonoBehaviour
             transform.SetParent(collision.transform);
             GameManager.Instance.guffinPickedUp = true;
         }
-
     }
 }

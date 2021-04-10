@@ -134,9 +134,7 @@ public class UnitChoosing : MonoBehaviour
                     unit.SetActive(false);
                 }
             }
-        }
-        
-        
+        }   
     }
 
     public void AddUnitToContainer(GameObject unit)

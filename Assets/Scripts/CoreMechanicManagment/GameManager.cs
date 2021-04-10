@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -26,9 +23,9 @@ public class GameManager : MonoBehaviour
     private float moveStep = 0.04f;
     [SerializeField]
     public GameObject tilesContaainter, unitsContainer;
-    private PathNode startNode;
+    private PathNode startNode; // używane w pathfindingu, który nie działa.
     [SerializeField]
-    public List<GameObject> tilesList, unitsList; // unitList najprawdopodobmnie do ununięcia w momencie zaimplementowanie dwóch osobnych list dla graczy.
+    public List<GameObject> tilesList, unitsList;
     [SerializeField]
     public List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
     [SerializeField]
@@ -36,21 +33,21 @@ public class GameManager : MonoBehaviour
     public int humansAlive = 6, elfesAlive = 6;
     public int roundsToEnd = 7;
     public bool guffinPickedUp = false;
+
     private void Awake()
     {
         instance = this;
         gameState = GameState.MainManu;
         pathfinding = GetComponent<Pathfinding>();
     }
+
     private void Start()
     {
         CMEventBroker.ChangeGameState += EnterNewState;
-        CMEventBroker.ChangeGameMode += GameModeChanged;
         CMEventBroker.AllUnitsChoosed += SetUpChoosedUnitLists;
         CMEventBroker.UpdateElfesScore += UpdateElfesScore;
         CMEventBroker.UpdateHumanScore += UpdateHumanScore;
      
-        /// wypełnianie list będzie wykonywane po UnitSelection state, w trakcie w trakcie Deployment State. 
         selectedUnit = null;
     }
 
@@ -197,37 +194,19 @@ public class GameManager : MonoBehaviour
     {
         switch (gameState)
         {
-            case GameState.MainManu:
-                // 1. Wybór opcji z MainManu, ustawianie parametrów tj. imiona graczy, itp.
-                break;
-            case GameState.UnitChoosing:
-                // 1. OnMauseClick na wyświetlonej jednostce, umieszcza ją w liście jednostek danego gracza. Zaimplementować w skrypcie Unit! (leftPlayerUnitList, rightPlayerUnitList)
-                break;
             case GameState.DeploymentLeft:
                 UIEventBroker.CallEndDeployment();
-                //sekcja przygotowujaca gamemanagerza do głownej sceny gry (łapanie referencji do objektów)
-                // 1. Bazując na listach graczy wykładamy jednoski wg zadesignowanego schematu na pierwszych dwóch rzędach pól. Do zaimplementowanie state lub bool dla tych pól, żeby w tym stacie mogły się wyświetlać. 
-                // 2. Być może będzie trzeba podzielić ten state na 2 osobne, dla każdego gracza jeden.
                 break;
             case GameState.DeploymentRight:
                 UIEventBroker.CallEndDeployment();
                 break;
-            case GameState.LeftPlayerBeforeTurn:
-                break;
             case GameState.LeftPlayerTurn:
                 UIEventBroker.CallHumanMove();
                 UIEventBroker.CallNextTurn();
-                // 1. Gracz lewy może poryuszac i atakowac Swoimi jednostkami
-                break;
-            case GameState.RightPlayerBeforeTurn:
                 break;
             case GameState.RightPlayerTurn:
                 UIEventBroker.CallElfesMove();
                 UIEventBroker.CallNextTurn();
-                // 1 Analogicznie dla prawego gracza
-                break;
-            case GameState.EndGame:
-                //1. Gdy zmienna victorycondition zostanie osiągnięta (bool), blokujemy grę, wyświetlamy ekran końcowy lub podsumowanie itp. Możliwość wejścia do main manu. 
                 break;
         }
     }
@@ -246,14 +225,6 @@ public class GameManager : MonoBehaviour
                         obj.HighLightMe(Color.red);
                     }
                 }
-                /*foreach (GameObject unit in unitsList)
-                {
-                    if (Mathf.Abs(selectedUnit.transform.position.x - unit.transform.position.x) + Mathf.Abs(selectedUnit.transform.position.y - unit.transform.position.y) <= selectedUnitAttackRange + 0.5f)
-                    {
-                        Unit obj = unit.GetComponent<Unit>();
-                        obj.HighLightMe(Color.red);
-                    }
-                }*/
             }
             else if (selectedUnit.canAtteck)
             {
@@ -318,17 +289,6 @@ public class GameManager : MonoBehaviour
             SetupScene();
     }
 
-    public void GameModeChanged()
-    {
-        //tutaj się coś będzie działo, jak się będzie zmieniał tryb gry
-        switch (gameMode)
-        {
-            case GameMode.DeveloperMode:
-                break;
-            case GameMode.NormalMode:
-                break;
-        }
-    }
     public void AfterAttack()
     {
         selectedUnit.canAtteck = false;

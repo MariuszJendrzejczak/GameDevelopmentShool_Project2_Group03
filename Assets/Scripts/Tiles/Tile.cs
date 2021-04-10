@@ -18,11 +18,6 @@ public class Tile : MonoBehaviour
         CMEventBroker.EndCurrentState += UnHighLightMe;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void HighLightMe(Color color)
     {
         renderer.color = color;
@@ -59,7 +54,6 @@ public class Tile : MonoBehaviour
                     {
                         GameManager.Instance.selectedUnit.transform.position = this.transform.position;
                     }
-
                 }
                 break;
         }      

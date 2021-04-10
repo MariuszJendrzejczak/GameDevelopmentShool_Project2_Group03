@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour
         x = transform.position.x;
         y = transform.position.y;
     }
+
     private void OnMouseDown()
     {
         switch (GameManager.Instance.gameState)
@@ -97,7 +98,6 @@ public class Unit : MonoBehaviour
                         }
                     }
                 }
-
                 break;
             case GameManager.GameState.RightPlayerTurn:
                 {
@@ -162,8 +162,7 @@ public class Unit : MonoBehaviour
             {
                 gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
-        }
-         
+        }    
     }
 
     private void OnMouseExit()
@@ -257,7 +256,6 @@ public class Unit : MonoBehaviour
                     unitHealth -= (value - unitArmor);
                     Debug.Log(this.name + " Taking Damage:" + (value - unitArmor));
                     Debug.Log(this.name + " Current HP:" + unitHealth + "/" + baseUnitHealth);
-
                 }
                 else
                 {
@@ -338,7 +336,6 @@ public class Unit : MonoBehaviour
                 }
                 Debug.Log(this.name + " is dead!");
                 renderer.enabled = false;
-             
             }
         }
     }

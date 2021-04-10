@@ -51,7 +51,9 @@ public class UIManager : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     public void HumansMove()
     {
+        if(turnHuman)
         turnHuman.GetComponent<Image>().color = turnColor;
+        if(turnElfes)
         turnElfes.GetComponent<Image>().color = basicColor;
     }
 
@@ -131,7 +133,9 @@ public class UIManager : MonoBehaviour
     }
     private void NextTurntBtn()
     {
+        if(nextTurnBtn)
         nextTurnBtn.SetActive(true);
+        if(endDeploymentBtn)
         endDeploymentBtn.SetActive(false);
 
     }

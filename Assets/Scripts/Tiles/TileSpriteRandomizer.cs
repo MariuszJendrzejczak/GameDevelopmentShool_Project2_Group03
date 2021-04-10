@@ -12,10 +12,4 @@ public class TileSpriteRandomizer : MonoBehaviour
         renderer = GetComponent<SpriteRenderer>();
         renderer.sprite = tileSprites[Random.Range(0, tileSprites.Length)];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
