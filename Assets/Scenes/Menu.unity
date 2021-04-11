@@ -2462,7 +2462,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b40fa87923af2084ea510b485634357f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.013
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2687,6 +2687,8 @@ MonoBehaviour:
   unitsList: []
   humanPlayerUnitList: []
   elfesPlayerUnitList: []
+  music: {fileID: 949881203}
+  clip: {fileID: 8300000, guid: 0b4ba0a4f248ce540be72dd320b075d5, type: 3}
   humanScore: 0
   elfesScore: 0
   humansAlive: 6

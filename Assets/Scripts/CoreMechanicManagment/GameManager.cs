@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> tilesList, unitsList;
     [SerializeField]
     public List<GameObject> humanPlayerUnitList, elfesPlayerUnitList;
+    public GameObject music;
+    public AudioClip clip;
     [SerializeField]
     private int humanScore, elfesScore;
     public int humansAlive = 6, elfesAlive = 6;

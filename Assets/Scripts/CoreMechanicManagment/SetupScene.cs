@@ -37,7 +37,8 @@ public class SetupScene : MonoBehaviour
         }
         GameManager.Instance.gameState = GameManager.GameState.PreDeployment;
         CMEventBroker.CallChangeGameState();
+        AudioSource source = GameManager.Instance.music.GetComponent<AudioSource>();
+        source.clip = GameManager.Instance.clip;
+        source.Play();
     }
-
-
 }
